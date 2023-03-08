@@ -1,2 +1,0 @@
-# ditola.github.io
-Bio
