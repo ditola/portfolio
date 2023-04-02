@@ -1,0 +1,99 @@
+<div id="ball" style="
+  z-index:5;
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:green"></div>
+
+<!-- <div id="border" style="
+  position: absolute;
+  left: 250px;
+  top: 250px;
+  width:500px;
+  height:500px;
+  border-style: solid;"></div> -->
+
+<script>
+
+var ball = document.getElementById('ball');
+var border = document.getElementById('border');
+
+var velocityX = 50;
+var positionX_MIN = 250;
+var positionX = 250;
+var positionX_MAX = 750 - 50;
+var reverseX = false;
+
+var velocityY = 30;
+var positionY_MIN = 250;
+var positionY = 250;
+var positionY_MAX = 750 - 50;
+var reverseY = false;
+
+var color = ['black', 'green', 'blue', 'red', 'yellow'];
+var color_counter = 0;
+
+var size = [50, 100, 25, 150, 75];
+var size_counter = 0;
+
+// YOUR CODE 
+// ----------------
+function colorBall(){
+  if (color_counter < color.length-1) color_counter++;
+  else color_counter = 0;
+
+  ball.style.background = color[color_counter];
+}
+
+function sizeBall(){
+  if (size_counter < size.length-1) size_counter++;
+  else size_counter = 0;
+
+  ball.style.width = size[size_counter] +'px';
+  ball.style.height = size[size_counter] + 'px';
+}
+
+function moveBall(){
+    if (reverseX == false) {
+      if (positionX < positionX_MAX) positionX = positionX + velocityX;
+      else {
+        reverseX = true;
+        colorBall();
+        sizeBall();
+      }
+    }
+    else {
+        if (positionX > positionX_MIN) positionX = positionX - velocityX;
+        else {
+          reverseX = false;
+          colorBall();
+          sizeBall();
+        }
+    }
+    ball.style.left = positionX + 'px';
+
+    if (reverseY == false) {
+      if (positionY < positionY_MAX) positionY = positionY + velocityY;
+      else{
+        reverseY = true;
+        colorBall();
+        sizeBall();
+      }
+    }
+    else{
+      if (positionY > positionY_MIN) positionY = positionY - velocityY;
+      else {
+        reverseY = false;
+        colorBall();
+        sizeBall();
+      }
+    }
+    ball.style.top = positionY + 'px';
+}
+
+setInterval(moveBall,100);
+
+</script>

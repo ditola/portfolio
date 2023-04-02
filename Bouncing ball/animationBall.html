@@ -1,0 +1,62 @@
+<div id="ball" style="
+  z-index:5;
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:green"></div>
+
+<script>
+
+var velocityX = 50;
+var positionX = 0;
+var positionX_MIN = 0;
+var positionX_MAX = 500;
+
+var velocityY = 30;
+var positionY = 0;
+
+var direction = 'right';
+var ball = document.getElementById('ball');
+
+// YOUR CODE 
+// ----------------
+
+function animateBall_right(){
+  positionX = positionX + velocityX;
+  positionY = positionY + velocityY;
+  ball.style.left = positionX + "px";
+  ball.style.top = positionY + "px";
+}
+
+function animateBall_left(){
+  positionX = positionX - velocityX;
+  positionY = positionY - velocityY;
+  ball.style.left = positionX + "px";
+  ball.style.top = positionY + "px";
+}
+
+function control(){
+  switch(direction){
+    case 'right':
+      if (positionX < positionX_MAX) animateBall_right();
+      else {
+        direction = 'left';
+        console.log(direction);
+      }
+      break;
+    case 'left':
+      if (positionX > positionX_MIN) animateBall_left();
+      else {
+        direction = 'right';
+        console.log(direction);
+      }
+      break;
+  }
+}
+
+setInterval(control,100);
+
+</script>
