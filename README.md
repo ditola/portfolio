@@ -19,12 +19,12 @@
 
 ## 
 
-## Some projects:
+## 🏭 Projects:
 
 1. [Personal Site](https://ditola.github.io/)
-2. Bouncing ball
-3. Random walk
-4. Pacman
+2. [Bouncing ball](https://github.com/ditola/ditola.github.io/tree/main/Bouncing%20ball)
+3. [Random walk](https://github.com/ditola/ditola.github.io/tree/main/Random%20walk)
+4. [Pacman](https://github.com/ditola/ditola.github.io/tree/main/Pacman)
 
 <br>
 
