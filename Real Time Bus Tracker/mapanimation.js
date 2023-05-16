@@ -3,6 +3,7 @@
     v: "weekly",
     // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
     // Add other bootstrap parameters as needed, using camel case.
+    libraries: 'geometry'
 });
 
 var map;
@@ -10,13 +11,26 @@ var markers = [];
 
 // initialize map
 async function initMap() {
+  
   const { Map } = await google.maps.importLibrary("maps");
   map = new Map(document.getElementById("map"), {
     center: { lat: 42.353350, lng: -71.091525 },
     zoom: 12,
     styles: stylesArray
   });
+  
   addMarkers();
+
+  var polylineString = 'ifraG`}qpLk@_@qA_A_As@iCFqA@uDDm@?[@??_DBiDBwA?Q@m@?k@@wA?[@??cC@uCFqCDyCB[???_C@oED??Q?{ABgAB}B@S???eBBuB?kDAmG@}CAaAAS@WCYGkEgBe@[A???aAi@sAu@cBcAYS??IEEEcAiA_@cBo@qE??M}@kAc@g@Wa@MoBaAm@S{Aw@e@Q??i@Uu@oAa@iAEI_@y@??]u@g@_AYo@u@_B{@iB??KSw@cB[o@_AqB??ISaCcF_@u@??_@u@iB{D??KSgDmH??KQw@_BcCiF??KUk@mA}BqC??MOcCwCqA{A??MMwEyF??MOiAsA[_@mDeEGGMQY]gC{Ca@c@]c@q@y@e@o@??MOuAaBaBoBqA{A??MOmBgA}BiAs@[k@YOGEE??y@c@q@_@aCsAaAg@a@SyA}@tCoI??`AsCvA}D@k@SmBYgBGc@]}A??EWMsACcA@m@HwAXaBV}AF}@@e@?i@??A}DNy@Zy@DKDU@O@]CWEWEOOYc@UWSMUIQo@qBSw@Uo@EK??KU[a@HcAFs@P{@XgAf@iB\\wAXmA??HWd@iBb@iBRgADs@DeAB}ABq@??DaAs@KgB_@gAS}ASsAGuA?kAB]Ac@Aa@C_@GYKOAO@QAs@gBiCeA';
+  var decodedPath = google.maps.geometry.encoding.decodePath(polylineString);
+  var polyline = new google.maps.Polyline({
+    path: decodedPath,
+    geodesic: true,
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.6,
+    strokeWeight: 2
+  });
+  polyline.setMap(map);
 }
 
 // Add bus markers
@@ -43,7 +57,7 @@ async function addMarkers(){
 // Request bus data from MBTA
 async function getBusLocations(){
   var API = 'ca34f7b7ac8a445287cab52fb451030a';
-  var url = `https://api-v3.mbta.com/vehicles?api_key=${API}&filter[route]&include=trip`;	
+  var url = `https://api-v3.mbta.com/vehicles?api_key=${API}&filter[route_type]=3&filter[route]=117&include=trip`;	
   var response = await fetch(url);
   var json     = await response.json();
   console.log(json.data);
