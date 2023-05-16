@@ -10,7 +10,9 @@
 1. Download a ZIP
 2. Extract the compressed file into a local folder
 3. Open 'index.html'
-or 
+
+<p>or</p> 
+
 1. Fork the repository into your GitHub
 2. Fetch the folder into your PC
 3. Open 'index.html'
