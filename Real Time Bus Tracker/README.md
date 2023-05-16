@@ -7,13 +7,15 @@
 - Route display
 
 ## How to Run:
-1 Download a ZIP
-2 Extract the compressed file into a local folder
-3 Open 'index.html'
-or 
-1 Fork the repository into your GitHub
-2 Fetch the folder into your PC
-3 Open 'index.html'
+1. Download a ZIP
+2. Extract the compressed file into a local folder
+3. Open 'index.html'
+
+<p>or</p> 
+
+1. Fork the repository into your GitHub
+2. Fetch the folder into your PC
+3. Open 'index.html'
 
 ## Roadmap
 1. Details for each bus:
