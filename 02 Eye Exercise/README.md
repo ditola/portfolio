@@ -1,4 +1,4 @@
-# 🟡 Eye Exercise
+# 👁️ Eye Exercise
 <p>At this version, the Eye can keep your mouse movements, you can't escape the glance.</p>
 <p>Great opportunity for interacting with the user through the mouse.</p>
 
