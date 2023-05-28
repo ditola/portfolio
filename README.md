@@ -22,10 +22,9 @@
 ## 🏭 Projects:
 
 1. [Personal Site](https://ditola.github.io/)
-2. [Bouncing ball](https://github.com/ditola/ditola.github.io/tree/main/Bouncing%20ball)
-3. [Random walk](https://github.com/ditola/ditola.github.io/tree/main/Random%20walk)
-4. [Pacman](https://github.com/ditola/ditola.github.io/tree/main/Pacman)
-5. [Real Time Bus Tracker](https://github.com/ditola/ditola.github.io/tree/main/Real%20Time%20Bus%20Tracker)
+2. [Pacman](https://github.com/ditola/ditola.github.io/tree/main/Pacman)
+3. [Eye Exercise](https://github.com/ditola/ditola.github.io/tree/main/02%20Eye%20Exercise)
+4. [Real Time Bus Tracker](https://github.com/ditola/ditola.github.io/tree/main/Real%20Time%20Bus%20Tracker)
 
 <br>
 
