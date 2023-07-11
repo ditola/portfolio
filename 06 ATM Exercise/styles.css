@@ -1,0 +1,16 @@
+h1 {
+    background-color: #283f31;
+    size: 2em;
+    color: white;
+}
+#root {
+    background-color: #59ad79;
+}
+
+
+button {
+    background-color: #1e2327;
+    border: 6px solid #528365;
+    border-radius: 10px;
+    width: 150px;
+}

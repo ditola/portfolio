@@ -7,8 +7,8 @@ const ATMDeposit = ({ onChange, isDeposit, atmMode, isValid }) => {
         (atmMode !== "" ) && 
         <div>
           <h3>{choice[Number(!isDeposit)]}</h3>
-          <input id="number-input" type="number" width="200" onChange={onChange}></input>
-          <input type="submit" width="200" value="Submit" id="submit-input" disabled={!isValid}></input>
+          <input class="form-control" id="number-input" type="number" width="200" onChange={onChange}></input>
+          <input class="btn btn-dark" type="submit" value="Submit" id="submit-input" disabled={!isValid}></input>
         </div>
       }
     </label>
@@ -66,7 +66,7 @@ const Account = () => {
     <form onSubmit={handleSubmit}>
       <h2 id="total">{status}</h2>
       <label>Select an action below to continue</label><br />
-      <select onChange={(e) => handleModeSelect(e)} name="mode" id="mode-select">
+      <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="mode" id="mode-select" onChange={(e) => handleModeSelect(e)}>
         <option id="no-selection" value=""></option>
         <option id="deposit-selection" value="Deposit">Deposit</option>
         <option id="cashback-selection" value="Cash Back">Cash Back</option>
