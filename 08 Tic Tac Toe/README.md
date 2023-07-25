@@ -1,4 +1,4 @@
-# 🏧 ATM activity
+# ✖️🟣 Tic Tac Toe activity
 <p>This is a Tic Tac Toe game</p>
 
 ## Roadmap of Future Improvements
