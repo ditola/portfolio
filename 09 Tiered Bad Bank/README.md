@@ -2,9 +2,9 @@ Project Title
 # 🏦 Tiered Bad Bank
 
 ## 1 Description/Motivation:
-This project serves as a demonstration of a full-stack application, utilizing the MERN stack (MongoDB, Express, React, and Node.js) as part of my capstone project for the MIT coding bootcamp. It effectively showcases the React architecture within a three-tier application framework, encompassing a browser-based client, an HTTP server, and a data storage layer. Additionally, the project incorporates essential features of authentication and authorization.
+This project serves as a demonstration of a full-stack application, utilizing the MERN stack (MongoDB, Express, React, and Node.js) as part of my capstone project for the MIT coding boot camp. It effectively showcases the React architecture within a three-tier application framework, encompassing a browser-based client, an HTTP server, and a data storage layer. Additionally, the project incorporates essential features of authentication and authorization.
 
-The demo emulates a 
+The demo emulates a banking application for login users and manages their wallets in a database, considering they might want to withdraw or deposit funds. As well as a basic security setting to authenticate and authorize users.
 
 ## 2 Prerequisites
 Before you begin, ensure you have met the following requirements:
