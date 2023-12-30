@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+
+  backend:
+    image: 508327519920.dkr.ecr.us-east-1.amazonaws.com/backend:latest
+    restart: always
+    depends_on:
+      - mongo
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/db
+    ports:
+      - "8080:8080"
+
+  frontend:
+    image: 508327519920.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:
+
