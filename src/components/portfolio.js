@@ -1,31 +1,43 @@
 import React, { useState } from 'react';
-import { Bot } from './path/to/Bot'; // Adjust the import path as necessary
-import { EfficiencyIcon } from './path/to/Bot'; // Adjust the import path as necessary
-import { ChevronDown } from './path/to/ChevronDown'; // Adjust the import path as necessary
-import { Linkedin } from './path/to/Linkedin'; // Adjust the import path as necessary
+import { IoBarChart, IoChevronDown, IoTrendingUp, IoLogoLinkedin } from "react-icons/io5";
+import { LuBot } from "react-icons/lu";
 
 const Portfolio = () => {
   const portfolioCases = [
     {
-      title: "Efficiency Improvement",
-      icon: <EfficiencyIcon className="w-12 h-12 text-green-600" />, // Adjust the import path as necessary
-      description: "Achieve significant efficiency improvements through optimized processes.",
+      title: "Executive Dashboards & Storytelling",
+      icon: <IoBarChart className="w-12 h-12 text-blue-600" />,
+      description: "Learn how to create compelling executive dashboards that tell your data story effectively. Includes a micro-bluebook on data visualization best practices and the SCQA framework.",
+      details: "Download free dashboard blueprint",
+      metrics: "34% faster decision-making"
+    },
+    {
+      title: "Advanced Analytics & ML",
+      icon: <IoTrendingUp className="w-12 h-12 text-blue-600" />,
+      description: "Deep dive into how machine learning can optimize your business processes. From predictive analytics to process automation.",
       details: "View case study",
       metrics: "46% efficiency gain"
     },
     {
       title: "AI-Powered Solutions",
-      icon: <Bot className="w-12 h-12 text-blue-600" />,
+      icon: <LuBot className="w-12 h-12 text-blue-600" />,
       description: "Implement AI solutions that deliver real business value. Focus on practical applications and measurable results.",
       details: "Explore AI solutions",
       metrics: "78% accuracy rate"
     }
   ];
 
-  const [expandedStates, setExpandedStates] = useState(portfolioCases.map(() => false));
+  const [expandedStates, setExpandedStates] = useState(new Array(portfolioCases.length).fill(false));
+
+  const toggleExpanded = (index) => {
+    const newExpandedStates = [...expandedStates];
+    newExpandedStates[index] = !newExpandedStates[index];
+    setExpandedStates(newExpandedStates);
+  };
 
   return (
-    <>
+    <div className="min-h-screen bg-white">
+      {/* Navbar */}
       <nav className="fixed w-full bg-white shadow-lg z-50">
         <div className="max-w-3xl mx-auto px-4">
           <div className="flex justify-between items-center h-14">
@@ -129,44 +141,37 @@ const Portfolio = () => {
       {/* Portfolio Section */}
       <section className="py-16 bg-gray-50" id="portfolio">
         <div className="max-w-3xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Featured Solutions</h2>
           <div className="grid md:grid-cols-3 gap-8">
-            {portfolioCases.map((item, index) => {
-                const isExpanded = expandedStates[index];
-                const toggleExpand = () => {
-                    const newExpandedStates = [...expandedStates];
-                    newExpandedStates[index] = !newExpandedStates[index];
-                    setExpandedStates(newExpandedStates);
-                };
-              
-              return (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all">
-                  <div className="mb-4">{item.icon}</div>
-                  <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
-                  <div className={`transition-all duration-300 ${isExpanded ? 'h-auto' : 'h-24'} overflow-hidden`}>
-                    <p className="text-gray-600 mb-4">{item.description}</p>
-                    {isExpanded && (
-                      <div className="py-4">
-                        <h4 className="font-semibold mb-2">How it works:</h4>
-                        <ul className="list-disc list-inside text-gray-600 space-y-2">
-                          <li>Analysis of current processes</li>
-                          <li>Implementation of ML models</li>
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex justify-between items-center mt-4">
-                    <button 
-                      onClick={toggleExpand}
-                      className="text-blue-600 hover:text-blue-700 flex items-center"
-                    >
-                      Find out more
-                      <ChevronDown className={`ml-1 w-4 h-4 transform transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
-                    </button>
-                    <span className="text-sm text-gray-500">{item.metrics}</span>
-                  </div>
+            {portfolioCases.map((item, index) => (
+              <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all">
+                <div className="mb-4">{item.icon}</div>
+                <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                <div className={`transition-all duration-300 ${expandedStates[index] ? 'h-auto' : 'h-24'} overflow-hidden`}>
+                  <p className="text-gray-600 mb-4">{item.description}</p>
+                  {expandedStates[index] && (
+                    <div className="py-4">
+                      <h4 className="font-semibold mb-2">How it works:</h4>
+                      <ul className="list-disc list-inside text-gray-600 space-y-2">
+                        <li>Analysis of current processes</li>
+                        <li>Implementation of ML models</li>
+                        <li>Continuous optimization</li>
+                      </ul>
+                    </div>
+                  )}
                 </div>
-              );
-            })}
+                <div className="flex justify-between items-center mt-4">
+                  <button 
+                    onClick={() => toggleExpanded(index)}
+                    className="text-blue-600 hover:text-blue-700 flex items-center"
+                  >
+                    Find out more
+                    <IoChevronDown className={`ml-1 w-4 h-4 transform transition-transform ${expandedStates[index] ? 'rotate-180' : ''}`} />
+                  </button>
+                  <span className="text-sm text-gray-500">{item.metrics}</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -200,7 +205,7 @@ const Portfolio = () => {
               rel="noopener noreferrer"
               className="text-gray-600 hover:text-blue-600 transition-colors"
             >
-              <Linkedin size={24} />
+              <IoLogoLinkedin size={24} />
             </a>
           </div>
           <div className="text-center text-sm text-gray-600">
@@ -208,7 +213,47 @@ const Portfolio = () => {
           </div>
         </div>
       </footer>
-    </>
+
+      {/* Case Study Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Case Study: Process Optimization</h2>
+            <p className="text-gray-600">How I reduced process time by 34% using ML and automation</p>
+          </div>
+          
+          <div className="bg-gray-50 rounded-lg shadow-lg p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-xl font-bold mb-4">The Challenge</h3>
+                <p className="text-gray-600 mb-4">Complex financial consolidation processes were taking too much time and prone to errors.</p>
+                
+                <h3 className="text-xl font-bold mb-4">The Approach</h3>
+                <ul className="list-disc list-inside text-gray-600 space-y-2">
+                  <li>Data analysis and process mapping</li>
+                  <li>ML model development for automation</li>
+                  <li>Implementation of automated workflows</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold mb-4">The Results</h3>
+                <div className="space-y-4">
+                  <div className="p-4 bg-blue-50 rounded-lg">
+                    <div className="text-2xl font-bold text-blue-600">34%</div>
+                    <div className="text-sm text-gray-600">Process time reduction</div>
+                  </div>
+                  <div className="p-4 bg-green-50 rounded-lg">
+                    <div className="text-2xl font-bold text-green-600">73%</div>
+                    <div className="text-sm text-gray-600">Error reduction</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };
 
