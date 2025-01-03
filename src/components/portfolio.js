@@ -2,6 +2,101 @@ import React, { useState } from 'react';
 import { IoBarChart, IoChevronDown, IoTrendingUp, IoLogoLinkedin } from "react-icons/io5";
 import { LuBot } from "react-icons/lu";
 
+// Update image imports with new structure
+import profileHero from '../assets/images/hero/profile-hero.jpg';
+import grupogloriaLogo from '../assets/images/logos/grupogloria.png';
+import vitaproLogo from '../assets/images/logos/vitapro.png';
+import alicorpLogo from '../assets/images/logos/alicorp.png';
+import saviaLogo from '../assets/images/logos/savia.png';
+import diacsaLogo from '../assets/images/logos/diacsa.png';
+
+const NavBar = () => (
+  <div className="fixed w-full top-4 z-50 px-4">
+    <div className="max-w-5xl mx-auto">
+      <div className="backdrop-blur-md bg-white/75 rounded-2xl shadow-lg border border-gray-200/20">
+        <div className="flex justify-between items-center h-14 px-6">
+          <div className="flex items-center">
+            <span className="text-lg font-bold text-blue-600">Diego Torres</span>
+          </div>
+          
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            <a href="#about" className="text-gray-600 hover:text-blue-600 transition-colors">About</a>
+            <a href="#portfolio" className="text-gray-600 hover:text-blue-600 transition-colors">Portfolio</a>
+            <a href="#companies" className="text-gray-600 hover:text-blue-600 transition-colors">Experience</a>
+            <a href="#contact" className="text-gray-600 hover:text-blue-600 transition-colors">Contact</a>
+            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              Let's Connect
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const CompaniesSection = () => {
+  const companies = [
+    { name: 'Grupo Gloria', logo: grupogloriaLogo },
+    { name: 'Vitapro', logo: vitaproLogo },
+    { name: 'Alicorp', logo: alicorpLogo },
+    { name: 'Savia Peru', logo: saviaLogo },
+    { name: 'Diacsa', logo: diacsaLogo },
+  ];
+
+  const firstRowCount = companies.length > 3 ? 3 : companies.length;
+  const secondRowCount = companies.length > 3 ? companies.length - 3 : 0;
+
+  return (
+    <section id="companies" className="py-16 bg-white">
+      <div className="max-w-5xl mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-12">Companies I've Worked With</h2>
+        
+        <div className="grid grid-cols-3 gap-8 items-center mb-8">
+          {companies.slice(0, firstRowCount).map((company) => (
+            <div key={company.name} className="p-6 hover:scale-105 transition-transform">
+              <img 
+                src={company.logo} 
+                alt={`${company.name} logo`} 
+                className="w-full h-12 object-contain grayscale hover:grayscale-0 transition-all" 
+              />
+            </div>
+          ))}
+        </div>
+
+        {secondRowCount > 0 && (
+          <div className={`grid grid-cols-${secondRowCount} gap-8 items-center w-fit mx-auto`}>
+            {companies.slice(firstRowCount).map((company) => (
+              <div key={company.name} className="p-6 hover:scale-105 transition-transform">
+                <img 
+                  src={company.logo} 
+                  alt={`${company.name} logo`} 
+                  className="w-full h-12 object-contain grayscale hover:grayscale-0 transition-all" 
+                />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+};
+
+const Footer = () => (
+  <footer className="py-16 bg-gray-900 text-gray-400">
+    <div className="max-w-6xl mx-auto px-4">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+        {/* Footer columns */}
+        {/* ...existing footer column code... */}
+      </div>
+      
+      <div className="mt-12 pt-8 border-t border-gray-800 text-center">
+        <p className="text-sm">© 2024 Diego Torres. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+);
+
 const Portfolio = () => {
   const portfolioCases = [
     {
@@ -37,27 +132,7 @@ const Portfolio = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navbar */}
-      <nav className="fixed w-full bg-white shadow-lg z-50">
-        <div className="max-w-3xl mx-auto px-4">
-          <div className="flex justify-between items-center h-14">
-            <div className="flex items-center">
-              <span className="text-lg font-bold text-blue-600">Diego Torres</span>
-            </div>
-            
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="#about" className="text-gray-600 hover:text-blue-600">About</a>
-              <a href="#portfolio" className="text-gray-600 hover:text-blue-600">Portfolio</a>
-              <a href="#contact" className="text-gray-600 hover:text-blue-600">Contact</a>
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                Let's Connect
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
+      <NavBar />
       {/* Hero Section */}
       <section className="pt-20 pb-12 md:pt-32 md:pb-24 bg-gradient-to-r from-blue-50 to-white">
         <div className="max-w-5xl mx-auto px-4">
@@ -94,8 +169,8 @@ const Portfolio = () => {
               <div className="relative">
                 <div className="absolute inset-0 bg-blue-600 rounded-lg transform translate-x-2 translate-y-2 opacity-20"></div>
                 <img
-                  src="/api/placeholder/600/400"
-                  alt="Data Science Visualization"
+                  src={profileHero}
+                  alt="Diego Torres - Data Science & ML Engineering"
                   className="relative rounded-lg shadow-xl w-full hover:transform hover:scale-105 transition-transform duration-300"
                 />
               </div>
@@ -119,17 +194,17 @@ const Portfolio = () => {
                 <circle cx="120" cy="270" r="120" fill="rgba(16, 185, 129, 0.1)" />
                 <circle cx="280" cy="270" r="120" fill="rgba(245, 158, 11, 0.1)" />
                 
-                <text x="200" y="120" textAnchor="middle" className="text-sm font-medium">Data Science</text>
-                <text x="200" y="140" textAnchor="middle" className="text-xs">ML/AI, Statistics</text>
-                <text x="200" y="160" textAnchor="middle" className="text-xs">Predictive Modeling</text>
+                <text x="200" y="100" textAnchor="middle" className="text-sm font-medium">Data Science</text>
+                <text x="200" y="120" textAnchor="middle" className="text-xs">ML/AI, Statistics</text>
+                <text x="200" y="140" textAnchor="middle" className="text-xs">Predictive Modeling</text>
                 
-                <text x="120" y="240" textAnchor="middle" className="text-sm font-medium">Engineering</text>
-                <text x="120" y="260" textAnchor="middle" className="text-xs">Full Stack</text>
-                <text x="120" y="280" textAnchor="middle" className="text-xs">System Design</text>
+                <text x="100" y="280" textAnchor="middle" className="text-sm font-medium">Engineering</text>
+                <text x="100" y="300" textAnchor="middle" className="text-xs">Full Stack</text>
+                <text x="100" y="320" textAnchor="middle" className="text-xs">System Design</text>
                 
-                <text x="280" y="240" textAnchor="middle" className="text-sm font-medium">Business</text>
-                <text x="280" y="260" textAnchor="middle" className="text-xs">Executive MBA</text>
-                <text x="280" y="280" textAnchor="middle" className="text-xs">Strategy</text>
+                <text x="300" y="280" textAnchor="middle" className="text-sm font-medium">Business</text>
+                <text x="300" y="300" textAnchor="middle" className="text-xs">Executive MBA</text>
+                <text x="300" y="320" textAnchor="middle" className="text-xs">Strategy</text>
                 
                 <text x="200" y="240" textAnchor="middle" className="text-base font-bold">Impact</text>
               </svg>
@@ -140,7 +215,7 @@ const Portfolio = () => {
 
       {/* Portfolio Section */}
       <section className="py-16 bg-gray-50" id="portfolio">
-        <div className="max-w-3xl mx-auto px-4">
+        <div className="max-w-5xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Featured Solutions</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {portfolioCases.map((item, index) => (
@@ -175,7 +250,7 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
-
+      <CompaniesSection />
       {/* CTA Section */}
       <section className="py-16 bg-gray-800 text-white">
         <div className="max-w-3xl mx-auto px-4 text-center">
@@ -194,65 +269,7 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="py-8 bg-white">
-        <div className="max-w-3xl mx-auto px-4">
-          <div className="flex justify-center mb-4">
-            <a 
-              href="https://linkedin.com/in/diegotorresll" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-gray-600 hover:text-blue-600 transition-colors"
-            >
-              <IoLogoLinkedin size={24} />
-            </a>
-          </div>
-          <div className="text-center text-sm text-gray-600">
-            © 2024 Diego Torres. All rights reserved.
-          </div>
-        </div>
-      </footer>
-
-      {/* Case Study Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Case Study: Process Optimization</h2>
-            <p className="text-gray-600">How I reduced process time by 34% using ML and automation</p>
-          </div>
-          
-          <div className="bg-gray-50 rounded-lg shadow-lg p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-bold mb-4">The Challenge</h3>
-                <p className="text-gray-600 mb-4">Complex financial consolidation processes were taking too much time and prone to errors.</p>
-                
-                <h3 className="text-xl font-bold mb-4">The Approach</h3>
-                <ul className="list-disc list-inside text-gray-600 space-y-2">
-                  <li>Data analysis and process mapping</li>
-                  <li>ML model development for automation</li>
-                  <li>Implementation of automated workflows</li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-bold mb-4">The Results</h3>
-                <div className="space-y-4">
-                  <div className="p-4 bg-blue-50 rounded-lg">
-                    <div className="text-2xl font-bold text-blue-600">34%</div>
-                    <div className="text-sm text-gray-600">Process time reduction</div>
-                  </div>
-                  <div className="p-4 bg-green-50 rounded-lg">
-                    <div className="text-2xl font-bold text-green-600">73%</div>
-                    <div className="text-sm text-gray-600">Error reduction</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Footer />
     </div>
   );
 };
