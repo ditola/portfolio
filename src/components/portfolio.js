@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { IoBarChart, IoChevronDown, IoTrendingUp, IoLogoLinkedin, IoMenu, IoClose } from "react-icons/io5";
+import { IoBarChart, IoChevronDown, IoTrendingUp, IoMenu, IoClose } from "react-icons/io5";
 import { LuBot } from "react-icons/lu";
+import { FaLinkedin } from 'react-icons/fa';
 
 // Update image imports with new structure
 import profileHero from '../assets/images/hero/profile-hero.jpg';
@@ -10,6 +11,58 @@ import alicorpLogo from '../assets/images/logos/alicorp.png';
 import saviaLogo from '../assets/images/logos/savia.png';
 import diacsaLogo from '../assets/images/logos/diacsa.png';
 
+// Constants for Navigation and Footer
+const NAV_LINKS = [
+  { href: "#hero", label: "Home" },
+  { href: "#expertise", label: "Expertise" },
+  { href: "#portfolio", label: "Portfolio" },
+  { href: "#companies", label: "Experience" },
+  { href: "#contact", label: "Contact" }
+];
+
+const FOOTER_SECTIONS = {
+  resources: {
+    title: "Resources",
+    links: [
+      { label: "Case Studies", href: "#portfolio" },
+      { label: "Documentation", href: "#docs" },
+      { label: "Dashboard Examples", href: "#dashboards" },
+      { label: "ML Models", href: "#models" }
+    ]
+  },
+  // ...rest of FOOTER_SECTIONS object...
+};
+
+// Experience and Skills Data
+const EXPERIENCE = [
+  {
+    company: "Grupo Gloria",
+    role: "Especialista de Transformación Digital // Finanzas",
+    period: "October 2023 – September 2024",
+    description: "Led the diagnosis and automation of corporate financial consolidation processes (P&L, balance sheet, and cash flow) by implementing an integrated dashboard (Power BI + SAP).",
+    achievements: [
+      "Process diagnosis and identification of automation opportunities, 63% of the team's time was dedicated to repetitive tasks",
+      "Creation of a digital transformation roadmap and bluebook in financial planning, reducing workload by 34% through reporting automation"
+    ]
+  },
+  // ...rest of experience data
+];
+
+const SKILLS = {
+  technical: [
+    "Full Stack Development (MERN)",
+    "Data Analysis & Visualization",
+    "Python + SQL",
+    "Business Intelligence"
+  ],
+  management: [
+    "Product Management",
+    "Project Management",
+    "OKR & Agile",
+    "Technical Leadership"
+  ]
+};
+
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -18,14 +71,14 @@ const NavBar = () => {
       <div className="max-w-5xl mx-auto">
         <div className="backdrop-blur-md bg-white/75 rounded-2xl shadow-lg border border-gray-200/20">
           <div className="flex justify-between items-center h-14 px-6">
-            <div className="flex items-center">
+            <a href="#hero" className="flex items-center">
               <span className="text-lg font-bold text-blue-600">Diego Torres</span>
-            </div>
+            </a>
             
-            {/* Mobile Menu Button */}
             <button 
               className="md:hidden text-gray-600 hover:text-blue-600 transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? 
                 <IoClose className="h-6 w-6" /> : 
@@ -33,35 +86,35 @@ const NavBar = () => {
               }
             </button>
 
-            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#about" className="text-gray-600 hover:text-blue-600 transition-colors">About</a>
-              <a href="#portfolio" className="text-gray-600 hover:text-blue-600 transition-colors">Portfolio</a>
-              <a href="#companies" className="text-gray-600 hover:text-blue-600 transition-colors">Experience</a>
-              <a href="#contact" className="text-gray-600 hover:text-blue-600 transition-colors">Contact</a>
+              {NAV_LINKS.map(({ href, label }) => (
+                <a 
+                  key={href}
+                  href={href}
+                  className="text-gray-600 hover:text-blue-600 transition-colors"
+                >
+                  {label}
+                </a>
+              ))}
               <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                 Let's Connect
               </button>
             </div>
           </div>
 
-          {/* Mobile Menu */}
           <div className={`md:hidden transition-all duration-300 ease-in-out ${
             isMobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
           } overflow-hidden`}>
             <div className="px-6 py-4 space-y-4">
-              <a href="#about" className="block text-gray-600 hover:text-blue-600 transition-colors">
-                About
-              </a>
-              <a href="#portfolio" className="block text-gray-600 hover:text-blue-600 transition-colors">
-                Portfolio
-              </a>
-              <a href="#companies" className="block text-gray-600 hover:text-blue-600 transition-colors">
-                Experience
-              </a>
-              <a href="#contact" className="block text-gray-600 hover:text-blue-600 transition-colors">
-                Contact
-              </a>
+              {NAV_LINKS.map(({ href, label }) => (
+                <a 
+                  key={href}
+                  href={href}
+                  className="block text-gray-600 hover:text-blue-600 transition-colors"
+                >
+                  {label}
+                </a>
+              ))}
               <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                 Let's Connect
               </button>
@@ -73,6 +126,77 @@ const NavBar = () => {
   );
 };
 
+const ExperienceCard = ({ experience }) => (
+  <div className="bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-all">
+    <div className="flex justify-between items-start mb-4">
+      <div>
+        <h3 className="text-xl font-bold text-gray-900">{experience.role}</h3>
+        <p className="text-blue-600">{experience.company}</p>
+      </div>
+      <span className="text-sm text-gray-500">{experience.period}</span>
+    </div>
+    <p className="text-gray-600 mb-4">{experience.description}</p>
+    <ul className="list-disc list-inside space-y-2">
+      {experience.achievements.map((achievement, index) => (
+        <li key={index} className="text-gray-600">{achievement}</li>
+      ))}
+    </ul>
+  </div>
+);
+
+const AboutSection = () => (
+  <section id="about" className="py-16 bg-white">
+    <div className="max-w-4xl mx-auto px-4">
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-bold mb-4">About Me</h2>
+        <p className="text-gray-600 text-lg leading-relaxed">
+          Expert in digital transformation and technological product development, with leadership experience in consumer goods companies. 
+          Skilled in identifying customer needs and pain points to design and implement digital solutions, ensuring effectiveness and 
+          efficiency through OKRs and the Agile framework. Bilingual Electronic Engineer and candidate for a global executive MBA.
+        </p>
+      </div>
+      
+      <div className="grid md:grid-cols-2 gap-8 mt-12">
+        <div>
+          <h3 className="text-xl font-bold mb-4">Technical Skills</h3>
+          <ul className="space-y-2">
+            {SKILLS.technical.map((skill) => (
+              <li key={skill} className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
+                <span className="text-gray-600">{skill}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3 className="text-xl font-bold mb-4">Management Skills</h3>
+          <ul className="space-y-2">
+            {SKILLS.management.map((skill) => (
+              <li key={skill} className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
+                <span className="text-gray-600">{skill}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+const ExperienceSection = () => (
+  <section id="experience" className="py-16 bg-gray-50">
+    <div className="max-w-4xl mx-auto px-4">
+      <h2 className="text-3xl font-bold text-center mb-12">Professional Experience</h2>
+      <div className="space-y-6">
+        {EXPERIENCE.map((exp, index) => (
+          <ExperienceCard key={index} experience={exp} />
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
 const CompaniesSection = () => {
   const companies = [
     { name: 'Grupo Gloria', logo: grupogloriaLogo },
@@ -82,54 +206,67 @@ const CompaniesSection = () => {
     { name: 'Diacsa', logo: diacsaLogo },
   ];
 
-  const firstRowCount = companies.length > 3 ? 3 : companies.length;
-  const secondRowCount = companies.length > 3 ? companies.length - 3 : 0;
+  // Split companies into two rows
+  const firstRow = companies.slice(0, Math.ceil(companies.length / 2));
+  const secondRow = companies.slice(Math.ceil(companies.length / 2));
 
   return (
-    <section id="companies" className="py-16 bg-white">
-      <div className="max-w-5xl mx-auto px-4">
+    <section id="companies" className="py-16 bg-gray-100">
+      <div className="max-w-6xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12">Companies I've Worked With</h2>
         
-        <div className="grid grid-cols-3 gap-8 items-center mb-8">
-          {companies.slice(0, firstRowCount).map((company) => (
-            <div key={company.name} className="p-6 hover:scale-105 transition-transform">
-              <img 
-                src={company.logo} 
-                alt={`${company.name} logo`} 
-                className="w-full h-12 object-contain grayscale hover:grayscale-0 transition-all" 
-              />
-            </div>
-          ))}
-        </div>
-
-        {secondRowCount > 0 && (
-          <div className={`grid grid-cols-${secondRowCount} gap-8 items-center w-fit mx-auto`}>
-            {companies.slice(firstRowCount).map((company) => (
-              <div key={company.name} className="p-6 hover:scale-105 transition-transform">
+        <div className="space-y-4 max-w-4xl mx-auto">
+          {/* First Row */}
+          <div className="flex justify-center gap-4">
+            {firstRow.map((company) => (
+              <div 
+                key={company.name}
+                className="bg-white rounded-lg p-6 flex items-center justify-center w-48 h-24 hover:shadow-lg transition-shadow"
+              >
                 <img 
                   src={company.logo} 
                   alt={`${company.name} logo`} 
-                  className="w-full h-12 object-contain grayscale hover:grayscale-0 transition-all" 
+                  className="max-w-[100%] max-h-[100%] w-auto h-auto object-contain grayscale hover:grayscale-0 transition-all duration-300" 
                 />
               </div>
             ))}
           </div>
-        )}
+
+          {/* Second Row */}
+          <div className="flex justify-center gap-4">
+            {secondRow.map((company) => (
+              <div 
+                key={company.name}
+                className="bg-white rounded-lg p-6 flex items-center justify-center w-48 h-24 hover:shadow-lg transition-shadow"
+              >
+                <img 
+                  src={company.logo} 
+                  alt={`${company.name} logo`} 
+                  className="max-w-[100%] max-h-[100%] w-auto h-auto object-contain grayscale hover:grayscale-0 transition-all duration-300" 
+                />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
 };
 
+// Updated Footer
 const Footer = () => (
-  <footer className="py-16 bg-gray-900 text-gray-400">
-    <div className="max-w-6xl mx-auto px-4">
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-        {/* Footer columns */}
-        {/* ...existing footer column code... */}
-      </div>
-      
-      <div className="mt-12 pt-8 border-t border-gray-800 text-center">
-        <p className="text-sm">© 2024 Diego Torres. All rights reserved.</p>
+  <footer className="py-8 bg-white border-t border-gray-200">
+    <div className="max-w-5xl mx-auto px-4">
+      <div className="flex justify-between items-center">
+        <p className="text-sm text-gray-600">© {new Date().getFullYear()} Diego Torres</p>
+        <a 
+          href="https://linkedin.com/in/diegotorresll" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-gray-600 hover:text-blue-600 transition-colors"
+        >
+          <FaLinkedin size={24} />
+        </a>
       </div>
     </div>
   </footer>
@@ -172,7 +309,7 @@ const Portfolio = () => {
     <div className="min-h-screen bg-white">
       <NavBar />
       {/* Hero Section */}
-      <section className="pt-20 pb-12 md:pt-32 md:pb-24 bg-gradient-to-r from-blue-50 to-white">
+      <section id="hero" className="pt-20 pb-12 md:pt-32 md:pb-24 bg-gradient-to-r from-blue-50 to-white">
         <div className="max-w-5xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-9 gap-8 items-center">
             <div className="md:col-span-5 space-y-6">
@@ -218,7 +355,7 @@ const Portfolio = () => {
       </section>
 
       {/* Skills Venn Diagram */}
-      <section className="py-16 bg-white">
+      <section id="expertise" className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Where I Add Value</h2>
@@ -252,7 +389,7 @@ const Portfolio = () => {
       </section>
 
       {/* Portfolio Section */}
-      <section className="py-16 bg-gray-50" id="portfolio">
+      <section id="portfolio" className="py-16 bg-gray-50">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Featured Solutions</h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -288,9 +425,11 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
+      <AboutSection />
+      <ExperienceSection />
       <CompaniesSection />
       {/* CTA Section */}
-      <section className="py-16 bg-gray-800 text-white">
+      <section id="contact" className="py-16 bg-gray-800 text-white">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">Unlock Your Potential with Diego</h2>
           <p className="text-xl mb-8">
