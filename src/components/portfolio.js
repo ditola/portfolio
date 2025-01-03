@@ -16,22 +16,9 @@ const NAV_LINKS = [
   { href: "#hero", label: "Home" },
   { href: "#expertise", label: "Expertise" },
   { href: "#portfolio", label: "Portfolio" },
-  { href: "#companies", label: "Experience" },
+  { href: "#experience", label: "Experience" },
   { href: "#contact", label: "Contact" }
 ];
-
-const FOOTER_SECTIONS = {
-  resources: {
-    title: "Resources",
-    links: [
-      { label: "Case Studies", href: "#portfolio" },
-      { label: "Documentation", href: "#docs" },
-      { label: "Dashboard Examples", href: "#dashboards" },
-      { label: "ML Models", href: "#models" }
-    ]
-  },
-  // ...rest of FOOTER_SECTIONS object...
-};
 
 // Experience and Skills Data
 const EXPERIENCE = [
@@ -45,7 +32,16 @@ const EXPERIENCE = [
       "Creation of a digital transformation roadmap and bluebook in financial planning, reducing workload by 34% through reporting automation"
     ]
   },
-  // ...rest of experience data
+  {
+    company: "Vitapro",
+    role: "Lead Project Manager - IoT",
+    period: "October 2023 – September 2024",
+    description: "Led the diagnosis and automation of corporate financial consolidation processes (P&L, balance sheet, and cash flow) by implementing an integrated dashboard (Power BI + SAP).",
+    achievements: [
+      "Process diagnosis and identification of automation opportunities, 63% of the team's time was dedicated to repetitive tasks",
+      "Creation of a digital transformation roadmap and bluebook in financial planning, reducing workload by 34% through reporting automation"
+    ]
+  },
 ];
 
 const SKILLS = {
@@ -425,9 +421,11 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
+      
       <AboutSection />
       <ExperienceSection />
       <CompaniesSection />
+
       {/* CTA Section */}
       <section id="contact" className="py-16 bg-gray-800 text-white">
         <div className="max-w-3xl mx-auto px-4 text-center">
