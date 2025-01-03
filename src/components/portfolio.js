@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IoBarChart, IoChevronDown, IoTrendingUp, IoLogoLinkedin } from "react-icons/io5";
+import { IoBarChart, IoChevronDown, IoTrendingUp, IoLogoLinkedin, IoMenu, IoClose } from "react-icons/io5";
 import { LuBot } from "react-icons/lu";
 
 // Update image imports with new structure
@@ -10,30 +10,68 @@ import alicorpLogo from '../assets/images/logos/alicorp.png';
 import saviaLogo from '../assets/images/logos/savia.png';
 import diacsaLogo from '../assets/images/logos/diacsa.png';
 
-const NavBar = () => (
-  <div className="fixed w-full top-4 z-50 px-4">
-    <div className="max-w-5xl mx-auto">
-      <div className="backdrop-blur-md bg-white/75 rounded-2xl shadow-lg border border-gray-200/20">
-        <div className="flex justify-between items-center h-14 px-6">
-          <div className="flex items-center">
-            <span className="text-lg font-bold text-blue-600">Diego Torres</span>
-          </div>
-          
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#about" className="text-gray-600 hover:text-blue-600 transition-colors">About</a>
-            <a href="#portfolio" className="text-gray-600 hover:text-blue-600 transition-colors">Portfolio</a>
-            <a href="#companies" className="text-gray-600 hover:text-blue-600 transition-colors">Experience</a>
-            <a href="#contact" className="text-gray-600 hover:text-blue-600 transition-colors">Contact</a>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-              Let's Connect
+const NavBar = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  return (
+    <div className="fixed w-full top-4 z-50 px-4">
+      <div className="max-w-5xl mx-auto">
+        <div className="backdrop-blur-md bg-white/75 rounded-2xl shadow-lg border border-gray-200/20">
+          <div className="flex justify-between items-center h-14 px-6">
+            <div className="flex items-center">
+              <span className="text-lg font-bold text-blue-600">Diego Torres</span>
+            </div>
+            
+            {/* Mobile Menu Button */}
+            <button 
+              className="md:hidden text-gray-600 hover:text-blue-600 transition-colors"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? 
+                <IoClose className="h-6 w-6" /> : 
+                <IoMenu className="h-6 w-6" />
+              }
             </button>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-8">
+              <a href="#about" className="text-gray-600 hover:text-blue-600 transition-colors">About</a>
+              <a href="#portfolio" className="text-gray-600 hover:text-blue-600 transition-colors">Portfolio</a>
+              <a href="#companies" className="text-gray-600 hover:text-blue-600 transition-colors">Experience</a>
+              <a href="#contact" className="text-gray-600 hover:text-blue-600 transition-colors">Contact</a>
+              <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                Let's Connect
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Menu */}
+          <div className={`md:hidden transition-all duration-300 ease-in-out ${
+            isMobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
+          } overflow-hidden`}>
+            <div className="px-6 py-4 space-y-4">
+              <a href="#about" className="block text-gray-600 hover:text-blue-600 transition-colors">
+                About
+              </a>
+              <a href="#portfolio" className="block text-gray-600 hover:text-blue-600 transition-colors">
+                Portfolio
+              </a>
+              <a href="#companies" className="block text-gray-600 hover:text-blue-600 transition-colors">
+                Experience
+              </a>
+              <a href="#contact" className="block text-gray-600 hover:text-blue-600 transition-colors">
+                Contact
+              </a>
+              <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                Let's Connect
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const CompaniesSection = () => {
   const companies = [
