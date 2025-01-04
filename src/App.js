@@ -1,12 +1,8 @@
 import React from 'react';
-import Portfolio from './components/portfolio.js';
+import Portfolio from './pages/Portfolio';
 
-function App() {
-  return (
-    <div className="min-h-screen bg-white">
-      <Portfolio />
-    </div>
-  );
-}
+const App = () => {
+  return <Portfolio />;
+};
 
 export default App;
