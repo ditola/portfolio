@@ -5,7 +5,7 @@ const ContactSection = () => (
     <div className="max-w-3xl mx-auto px-4 text-center">
       <h2 className="text-4xl font-bold mb-6">¿Listo para transformar tu negocio?</h2>
       <p className="text-xl mb-8">
-        Agenda una consulta gratuita para discutir cómo podemos implementar
+        Agéndame un espacio para conversar sobre cómo podemos implementar
         soluciones que generen resultados medibles en tu empresa.
       </p>
       <div className="flex flex-col sm:flex-row justify-center gap-4">
