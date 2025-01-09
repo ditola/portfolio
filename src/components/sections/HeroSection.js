@@ -1,7 +1,7 @@
 import React from 'react';
 import { CORE_SOLUTIONS } from '../../data/solutions';
 import { IoChevronDown } from "react-icons/io5";
-import profileHero from '../../assets/images/hero/profile-hero.jpg'; // Adjust the path as necessary
+import profileHero from '../../assets/images/hero/profile-hero.jpg';
 
 const HeroSection = () => (
   <section id="hero" className="pt-20 pb-12 md:pt-32 md:pb-24 bg-gradient-to-r from-blue-50 to-white">
@@ -44,7 +44,7 @@ const HeroSection = () => (
           <div className="relative">
             <div className="absolute inset-0 bg-blue-600 rounded-lg transform translate-x-2 translate-y-2 opacity-20"></div>
             <img
-              src={profileHero} // Use the imported image
+              src={profileHero}
               alt="Diego Torres - Data Science & ML Engineering"
               className="relative rounded-lg shadow-xl w-full hover:transform hover:scale-105 transition-transform duration-300"
             />

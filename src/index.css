@@ -19,3 +19,29 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.section {
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* .sticky-grid,
+.sticky-right,
+.sticky-left,
+.sticky-left-content-wrapper {
+  ...
+} */
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out forwards;
+}

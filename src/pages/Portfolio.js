@@ -6,6 +6,7 @@ import SolutionsSection from '../components/sections/SolutionsSection';
 import ExperienceSection from '../components/sections/ExperienceSection';
 import CompaniesSection from '../components/sections/CompaniesSection';
 import ContactSection from '../components/sections/ContactSection';
+import AnimationSection from '../components/sections/AnimationSection';
 
 const Portfolio = () => {
   return (
@@ -15,6 +16,7 @@ const Portfolio = () => {
       <SolutionsSection />
       <ExperienceSection />
       <CompaniesSection />
+      <AnimationSection />
       <ContactSection />
       <Footer />
     </div>
