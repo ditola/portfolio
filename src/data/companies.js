@@ -14,12 +14,44 @@
  * @type {Company[]}
  */
 
+// Import company logos
+import alicorpLogo from '../assets/images/logos/alicorp.png';
+import vitaproLogo from '../assets/images/logos/vitapro.png';
+import gloriaLogo from '../assets/images/logos/grupogloria.png';
+import saviaLogo from '../assets/images/logos/savia.png';
+import diacsaLogo from '../assets/images/logos/diacsa.png';
+
 export const companies = [
   {
-    name: "TechCorp",
-    logo: "/images/companies/techcorp.png",
-    description: "Implemented ML solutions for process optimization",
+    name: "Grupo Gloria",
+    logo: gloriaLogo,
+    description: "Enterprise BI strategy and implementation",
+    metrics: { value: "28%", label: "Revenue Growth" }
+  },
+  {
+    name: "Alicorp",
+    logo: alicorpLogo,
+    description: "Implemented data-driven decision systems for operational excellence",
     metrics: { value: "46%", label: "Efficiency Improvement" }
   },
-  // ... other companies
+  {
+    name: "Vitapro",
+    logo: vitaproLogo,
+    description: "Developed predictive analytics platform for supply chain optimization",
+    metrics: { value: "32%", label: "Cost Reduction" }
+  },
+  {
+    name: "Savia",
+    logo: saviaLogo,
+    description: "Digital transformation and process automation",
+    metrics: { value: "75%", label: "Process Automation" }
+  },
+  {
+    name: "Diacsa",
+    logo: diacsaLogo,
+    description: "Business intelligence and analytics solutions",
+    metrics: { value: "3.2x", label: "ROI" }
+  }
 ];
+
+export const COMPANIES_DATA = companies; // Alias for backward compatibility

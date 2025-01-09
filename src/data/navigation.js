@@ -1,12 +1,5 @@
 /**
- * @fileoverview Navigation configuration for the portfolio website
- * @description Defines the navigation items and their properties for the main navigation bar
- * 
- * @typedef {Object} NavigationItem
- * @property {string} label - Display text for the navigation item
- * @property {string} href - Target URL or anchor link
- * 
- * @type {NavigationItem[]}
+ * @fileoverview Navigation and social links configuration
  */
 
 export const navigation = [
@@ -14,4 +7,17 @@ export const navigation = [
   { label: 'Solutions', href: '#solutions' },
   { label: 'Experience', href: '#experience' },
   { label: 'Contact', href: '#contact' }
+];
+
+export const SOCIAL_LINKS = [
+  { 
+    name: 'LinkedIn',
+    href: 'https://linkedin.com/in/diegotorresll',
+    icon: 'linkedin'
+  },
+  { 
+    name: 'GitHub',
+    href: 'https://github.com/ditola',
+    icon: 'github'
+  }
 ];
