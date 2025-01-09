@@ -1,45 +1,51 @@
 import React from 'react';
-import { HiDocumentDownload } from 'react-icons/hi';
+import profileHero from '../../assets/images/hero/profile-hero.png';
+import Button from '../ui/Button';
 
 /**
  * @component ContactSection
- * @description A card-style contact section with a primary call-to-action for consultation
- * and a secondary action to download resume.
+ * @description A three-column contact section with text, profile image, and call-to-action buttons.
  */
-const ContactSection = () => {
-  return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-      <div className="bg-[#1B2B2B] rounded-[24px] p-8 sm:p-12 flex flex-col sm:flex-row justify-between items-center gap-6">
-        <div>
-          <h2 className="text-4xl sm:text-4xl font-bold text-white mb-4">
-            Aprovecha tu data para crecer.
+const ContactSection = () => (
+  <div id="contact" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
+    <div className="rounded-[24px] p-0 h-[250px] overflow-hidden w-[90%] mx-auto" style={{ background: 'radial-gradient(circle at 55% 50%, hsl(60, 5%, 44%) 5%, hsl(30, 5%, 25%) 65%)' }}>
+      <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 h-full">
+        <div className="w-full lg:w-1/3 flex flex-col items-start justify-center text-left pl-20">
+          <h2 className="text-4xl sm:text-4xl font-bold text-white mb-2">
+            Aprovecha tu propia data.
           </h2>
           <p className="text-xl text-gray-300">
-            Conversemos para descubrir cómo puedo ayudarte.
+            Conversemos para descubrir cómo lograrlo.
           </p>
         </div>
-        <div className="flex flex-col gap-3 items-center">
-          <a
-            href="https://tidycal.com/diegotorresll/30-min"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-[#00FFA3] hover:bg-[#00E693] text-black text-m font-medium px-8 py-3 rounded-lg transition-colors duration-200 whitespace-nowrap w-full text-center"
-          >
-            Conversemos
-          </a>
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-transparent border border-gray-400 hover:border-gray-300 text-gray-300 hover:text-white text-m font-medium px-8 py-3 rounded-lg transition-all duration-200 whitespace-nowrap w-full text-center flex items-center justify-center gap-2"
-          >
-            <HiDocumentDownload className="text-xl" />
-            <span>Descargar CV</span>
-          </a>
+        <div className="w-full lg:w-1/3 flex items-center justify-center mt-56">
+          <div className="relative h-full">
+            <img
+              src={profileHero}
+              alt="Diego Torres - Data Science & ML Engineering"
+              className="relative w-full h-full object-cover"
+              style={{ border: 'none' }}
+            />
+          </div>
+        </div>
+        <div className="w-full lg:w-1/6 flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center">
+            <Button
+              link="https://tidycal.com/diegotorresll/30-min"
+              text="Conversemos"
+              variant="primary"
+            />
+            <br />
+            <Button
+              link="/resume.pdf"
+              text="Descargar CV"
+              variant="secondary"
+            />
+          </div>
         </div>
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 export default ContactSection;

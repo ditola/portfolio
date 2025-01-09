@@ -31,6 +31,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
+  color: #000000;
 }
 
 code {
@@ -63,4 +65,51 @@ code {
  */
 .animate-fade-in {
   animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.button {
+  background-color: var(--button-background);
+  color: var(--text-color);
+}
+
+.button:hover {
+  background-color: var(--button-hover-background);
+}
+
+.text-secondary {
+  color: var(--secondary-text-color);
+}
+
+.border {
+  border-color: #666666;
+}
+
+/* Example CSS for glassmorphism */
+.navbar {
+    backdrop-filter: blur(10px); /* Adjust the blur amount as needed */
+    background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent white */
+    border-radius: 12px; /* Rounded corners */
+    border: none; /* Remove any border */
+    box-shadow: none; /* Remove any shadow if necessary */
+}
+
+:root {
+  --emerald-color: #00FFA3; /* Default emerald color */
+  --emerald-hover-color: #00E693; /* Hover color for emerald */
+  --button-background: #007BFF; /* Default button background color */
+  --button-hover-background: #FFD700; /* Button hover color */
+  --text-color: #000000; /* Default text color */
+  --secondary-text-color: #333333; /* Secondary text color */
+  --border-color: #666666; /* Border color */
+  --background-color: #ffffff; /* Background color */
+}
+
+/* Add a class for light theme */
+.light-theme {
+  --emerald-color: #007BFF; /* Change to a more suitable color for light backgrounds */
+}
+
+/* Example usage of the variable */
+.text-emerald {
+  color: var(--emerald-color);
 }

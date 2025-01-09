@@ -11,7 +11,11 @@ import React from 'react';
 import Portfolio from './pages/Portfolio';
 
 const App = () => {
-  return <Portfolio />;
+  return (
+    <div className="light-theme">
+      <Portfolio />
+    </div>
+  );
 };
 
 export default App;

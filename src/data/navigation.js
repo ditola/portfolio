@@ -2,11 +2,12 @@
  * @fileoverview Navigation and social links configuration
  */
 
-export const navigation = [
-  { label: 'Home', href: '#home' },
-  { label: 'Solutions', href: '#solutions' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Contact', href: '#contact' }
+export const NAV_LINKS = [
+  { href: '#hero', label: 'Inicio' },
+  { href: '#solutions', label: 'Soluciones' },
+  { href: '#companies', label: 'Compañías' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#contact', label: 'Contacto' }
 ];
 
 export const SOCIAL_LINKS = [

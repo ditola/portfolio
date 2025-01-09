@@ -15,6 +15,8 @@
  * @type {Solution[]}
  */
 
+import { IoAnalytics, IoRocket } from "react-icons/io5";
+
 export const solutions = [
   {
     id: "ml-optimization",
@@ -42,7 +44,7 @@ export const solutions = [
     shortDescription: "Forecast business outcomes",
     problem: "Struggling to predict market changes?",
     fullDescription: "Advanced analytics that help you stay ahead of market trends and make data-driven decisions.",
-    icon: "trending-up",
+    icon: <IoAnalytics />,
     impact: "34% Better Forecasting",
     metrics: { value: "34%", label: "Forecast Accuracy" },
     benefits: [
@@ -62,7 +64,7 @@ export const solutions = [
     shortDescription: "Automate repetitive tasks",
     problem: "Manual processes eating up resources?",
     fullDescription: "AI-powered automation solutions that streamline operations and reduce manual effort.",
-    icon: "bot",
+    icon: <IoRocket />,
     impact: "75% Time Saved",
     metrics: { value: "75%", label: "Efficiency Gain" },
     benefits: [

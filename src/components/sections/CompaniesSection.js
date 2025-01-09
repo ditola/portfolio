@@ -9,7 +9,7 @@ const CompaniesSection = () => {
   return (
     <section id="companies" className="py-16 bg-gray-100">
       <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">Empresas donde he generado impacto</h2>
+        <h2 className="text-3xl font-bold text-center mb-12">Organizaciones que trazaron mi trayectoria:</h2>
         
         <div className="space-y-4 max-w-4xl mx-auto">
           <div className="flex justify-center gap-4">

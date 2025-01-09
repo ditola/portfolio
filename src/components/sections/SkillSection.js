@@ -16,17 +16,12 @@ import React, { useEffect, useRef, useState } from 'react';
  * @version 1.0.0
  */
 
-/**
- * Configuration for transition timing
- * @constant {number} TRANSITION_OFFSET - Controls how early the image transitions occur
- */
-const TRANSITION_THRESHOLDS = Array.from({ length: 41 }, (_, i) => i * 0.025); // More granular thresholds
-
 const SkillSection = () => {
   // Refs and State Management
   const sectionRef = useRef(null);
   const textRefs = useRef([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   /**
    * Content sections configuration
@@ -69,175 +64,104 @@ const SkillSection = () => {
     }
   ];
 
-  // Constants for viewport calculations
-  const VIEWPORT_THRESHOLDS = {
-    MOBILE: {
-      TOP_MARGIN: '-40%',
-      BOTTOM_MARGIN: '-10%',
-      SCROLL_DOWN: {
-        TRIGGER_POINT: 0.1,     // Show next image when next section starts appearing (10% visible)
-        FADE_START: 0.2,
-      },
-      SCROLL_UP: {
-        TRIGGER_POINT: 0.25,    // Keep image until 25% visible
-        FADE_START: 0.8,
-        FADE_END: 0.2,
-      },
-      OPACITY_MAX: 1,
-      OPACITY_MIN: 0
-    },
-    DESKTOP: {
-      TOP_MARGIN: '-40%',
-      BOTTOM_MARGIN: '-30%',
-      SCROLL_DOWN: {
-        TRIGGER_POINT: 0.95,    // Show next image when next section is 95% visible
-        FADE_START: 0.4,        // Start fade transition at 40%
-      },
-      SCROLL_UP: {
-        TRIGGER_POINT: 0.65,
-        FADE_START: 0.4,
-      },
-      OPACITY_MAX: 1,
-      OPACITY_MIN: 0,
-      TRANSITION_SPEED: 2.5
-    }
-  };
+  // Add initial mount effect
+  useEffect(() => {
+    setActiveIndex(0);
+    setIsInitialLoad(true);
+    
+    const timer = setTimeout(() => {
+      setIsInitialLoad(false);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const viewportHeight = window.innerHeight;
+      let newActiveIndex = activeIndex;
+      const isMobile = window.innerWidth < 1024;
+
+      textRefs.current.forEach((ref, index) => {
+        if (!ref) return;
+        const rect = ref.getBoundingClientRect();
+        
+        if (isMobile) {
+          // More lenient check for mobile
+          if (rect.top < viewportHeight * 0.8 && rect.bottom > viewportHeight * 0.2) {
+            newActiveIndex = index;
+          }
+          // Special case for first section on mobile
+          if (index === 0 && rect.bottom > viewportHeight * 0.3) {
+            newActiveIndex = 0;
+          }
+        } else {
+          // Desktop behavior remains the same
+          if (rect.top < viewportHeight * 0.75 && rect.bottom > viewportHeight * 0.25) {
+            newActiveIndex = index;
+          }
+        }
+      });
+
+      if (newActiveIndex !== activeIndex) {
+        setActiveIndex(newActiveIndex);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [activeIndex]);
 
   const getOpacity = (index) => {
+    // During initial load, show first image with full opacity
+    if (isInitialLoad && index === 0) return 1;
+
     const isMobile = window.innerWidth < 1024;
-    
-    if (isMobile) {
-      // Mobile behavior remains mostly the same but simplified
-      if (index === activeIndex) {
-        return 1;
-      }
-      if (index === activeIndex + 1 || index === activeIndex - 1) {
-        const ref = textRefs.current[index];
-        if (!ref) return 0;
-
-        const rect = ref.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
-        const visibilityPercentage = visibleHeight / rect.height;
-        
-        return Math.max(0, Math.min(0.5, visibilityPercentage));
-      }
-      return 0;
-    }
-
-    // Desktop behavior - simplified and standardized
-    if (index === activeIndex) {
-      return 1;
-    }
-    
     const ref = textRefs.current[index];
     if (!ref) return 0;
 
     const rect = ref.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
-    const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
-    const visibilityPercentage = visibleHeight / rect.height;
 
-    // Fade out for adjacent sections
-    if (index === activeIndex - 1 || index === activeIndex + 1) {
-      return Math.max(0, Math.min(0.3, visibilityPercentage));
+    // Special case for first section
+    if (index === 0 && rect.bottom > 0) {
+      return 1;
     }
 
+    if (index === activeIndex) return 1;
+
+    if (isMobile) {
+      if (index === activeIndex + 1) {
+        // Show next section when text is 50% visible
+        const enterPoint = viewportHeight * 0.3;
+        // Calculate progress as text enters viewport
+        const progress = (viewportHeight - rect.top) / (viewportHeight * 0.5);
+        return progress > 0 ? Math.min(0.8, progress) : 0;
+      }
+      if (index === activeIndex - 1) {
+        // Keep previous section visible until text is 50% out
+        const exitPoint = viewportHeight * 0.5;
+        // Calculate progress as text exits viewport
+        const progress = rect.bottom / (viewportHeight * 0.5);
+        return progress > 0 ? Math.min(0.8, progress) : 0;
+      }
+    } else {
+      // Desktop: fade adjacent sections
+      if (index === activeIndex - 1 || index === activeIndex + 1) {
+        const elementCenter = (rect.top + rect.bottom) / 2;
+        const viewportCenter = viewportHeight / 2;
+        const distance = Math.abs(elementCenter - viewportCenter);
+        return Math.max(0.2, Math.min(0.6, 1 - (distance / (viewportHeight * 0.75))));
+      }
+    }
+    
     return 0;
   };
 
-  useEffect(() => {
-    const isMobile = window.innerWidth < 1024;
-    const options = {
-      root: null,
-      rootMargin: `${isMobile ? VIEWPORT_THRESHOLDS.MOBILE.TOP_MARGIN : '-20%'} 0px ${isMobile ? VIEWPORT_THRESHOLDS.MOBILE.BOTTOM_MARGIN : '-20%'} 0px`,
-      threshold: TRANSITION_THRESHOLDS
-    };
-
-    let lastScrollY = window.scrollY;
-    let lastActiveIndex = activeIndex;
-    let scrollTimeout;
-
-    const observer = new IntersectionObserver((entries) => {
-      const currentScrollY = window.scrollY;
-      const scrollingDown = currentScrollY > lastScrollY;
-      lastScrollY = currentScrollY;
-
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-      }
-
-      // Sort entries by their position in viewport
-      const sortedEntries = entries.sort((a, b) => {
-        const rectA = a.boundingClientRect;
-        const rectB = b.boundingClientRect;
-        return rectA.top - rectB.top;
-      });
-
-      let newIndex = lastActiveIndex;
-
-      sortedEntries.forEach(entry => {
-        const index = parseInt(entry.target.dataset.index);
-        const rect = entry.boundingClientRect;
-        const viewportHeight = window.innerHeight;
-        
-        const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
-        const visibilityPercentage = visibleHeight / rect.height;
-        const sectionPosition = rect.bottom / viewportHeight;
-
-        if (scrollingDown) {
-          if (visibilityPercentage > (isMobile ? 0.4 : 0.5) && index > newIndex) {
-            newIndex = index;
-          }
-        } else {
-          // Enhanced upward scrolling logic
-          const topVisibility = (viewportHeight - rect.top) / viewportHeight;
-          if (topVisibility > (isMobile ? 0.3 : 0.4) && sectionPosition > 0.2) {
-            newIndex = Math.max(0, index);
-          }
-        }
-      });
-
-      if (newIndex !== lastActiveIndex) {
-        lastActiveIndex = newIndex;
-        setActiveIndex(newIndex);
-      }
-
-      // Fallback check for edge cases
-      scrollTimeout = setTimeout(() => {
-        const mostVisibleSection = sortedEntries.reduce((prev, current) => {
-          const prevRect = prev.boundingClientRect;
-          const currentRect = current.boundingClientRect;
-          const prevCenter = (prevRect.top + prevRect.bottom) / 2;
-          const currentCenter = (currentRect.top + currentRect.bottom) / 2;
-          
-          // Prefer sections closer to the middle of the viewport
-          const viewportCenter = window.innerHeight / 2;
-          const prevDistance = Math.abs(prevCenter - viewportCenter);
-          const currentDistance = Math.abs(currentCenter - viewportCenter);
-          
-          return currentDistance < prevDistance ? current : prev;
-        });
-
-        const centerIndex = parseInt(mostVisibleSection.target.dataset.index);
-        if (centerIndex !== lastActiveIndex) {
-          lastActiveIndex = centerIndex;
-          setActiveIndex(centerIndex);
-        }
-      }, 100);
-    }, options);
-
-    textRefs.current.forEach(ref => ref && observer.observe(ref));
-    return () => {
-      observer.disconnect();
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-      }
-    };
-  }, [activeIndex, VIEWPORT_THRESHOLDS.MOBILE.TOP_MARGIN, VIEWPORT_THRESHOLDS.MOBILE.BOTTOM_MARGIN]);
-
   return (
-    <div ref={sectionRef} className="relative bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div id="skills" ref={sectionRef} className="relative bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="w-full grid grid-cols-1 lg:grid-cols-2">
         {/* Left Column */}
         <div className="relative">
@@ -259,7 +183,7 @@ const SkillSection = () => {
               {/* Content */}
               <div className="w-full">
                 <div className="mb-4">
-                  <div className="text-blue-600 font-semibold tracking-wide">
+                  <div className="text-emerald font-semibold tracking-wide">
                     {section.label}
                   </div>
                 </div>
@@ -293,7 +217,7 @@ const SkillSection = () => {
                 <img
                   src={section.image}
                   alt={section.title}
-                  className="w-4/5 h-auto rounded-lg shadow-2xl"
+                  className="w-4/5 h-auto rounded-lg shadow-2xl transition-all duration-500"
                   style={{ 
                     opacity: getOpacity(index),
                     transform: `scale(${index === activeIndex ? 1 : 0.95}) translateY(${index < activeIndex ? '10px' : index > activeIndex ? '-10px' : '0px'})`,

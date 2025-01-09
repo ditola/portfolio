@@ -11,7 +11,7 @@ const Footer = () => (
           href={SOCIAL_LINKS.linkedin}
           target="_blank" 
           rel="noopener noreferrer"
-          className="text-gray-600 hover:text-blue-600 transition-colors"
+          className="text-gray-600 hover:text-emerald transition-colors"
         >
           <FaLinkedin size={24} />
         </a>
