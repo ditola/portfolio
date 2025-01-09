@@ -107,26 +107,11 @@ const SkillSection = () => {
     const isMobile = window.innerWidth < 1024;
     
     if (isMobile) {
+      // Mobile behavior remains mostly the same but simplified
       if (index === activeIndex) {
-        const ref = textRefs.current[index];
-        if (!ref) return 1;
-
-        const rect = ref.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
-        const visibilityPercentage = visibleHeight / rect.height;
-        const topPosition = rect.top / viewportHeight;
-        
-        // Special handling for first section
-        if (index === 0) {
-          // Ensure full opacity when at the top
-          if (topPosition >= -0.1 && topPosition <= 0.1) return 1;
-          return Math.max(0.3, Math.min(1, (1 - Math.abs(topPosition)) * 1.5));
-        }
-        return Math.max(0.3, Math.min(1, visibilityPercentage * 1.2));
+        return 1;
       }
-      
-      if (index === activeIndex + 1) {
+      if (index === activeIndex + 1 || index === activeIndex - 1) {
         const ref = textRefs.current[index];
         if (!ref) return 0;
 
@@ -135,77 +120,29 @@ const SkillSection = () => {
         const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
         const visibilityPercentage = visibleHeight / rect.height;
         
-        // Special handling for transition from first section
-        if (activeIndex === 0) {
-          return Math.max(0, Math.min(1, visibilityPercentage * 1.2));
-        }
-        return Math.max(0, Math.min(1, visibilityPercentage - 0.3));
-      }
-      
-      if (index === activeIndex - 1) {
-        const ref = textRefs.current[index];
-        if (!ref) return 0;
-
-        const rect = ref.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const bottomVisibility = rect.bottom / viewportHeight;
-        
-        return Math.min(1, Math.max(0, bottomVisibility * 1.2));
+        return Math.max(0, Math.min(0.5, visibilityPercentage));
       }
       return 0;
     }
 
-    // Desktop behavior
+    // Desktop behavior - simplified and standardized
     if (index === activeIndex) {
-      // Special handling for first section
-      if (index === 0) {
-        const ref = textRefs.current[index];
-        if (!ref) return 1;
-
-        const rect = ref.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const topPosition = rect.top / viewportHeight;
-        
-        // Ensure clean transition for first section
-        if (topPosition > 0.5) return 0;
-        if (topPosition < 0.2) return 1;
-        
-        return Math.min(1, Math.max(0, 1 - (topPosition * 3)));
-      }
       return 1;
     }
-    if (index === activeIndex - 1) {
-      const ref = textRefs.current[index];
-      if (!ref) return 0;
+    
+    const ref = textRefs.current[index];
+    if (!ref) return 0;
 
-      const rect = ref.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      
-      // Special handling for Cost Optimization when transitioning to first section
-      if (activeIndex === 0) {
-        const topPosition = rect.top / viewportHeight;
-        
-        // Force complete fade out as it moves up
-        if (topPosition < -0.2) return 0;
-        if (topPosition > 0.3) return 1;
-        
-        return Math.min(1, Math.max(0, (topPosition + 0.2) * 2));
-      }
-      
-      const bottomVisibility = rect.bottom / viewportHeight;
-      return Math.min(1, Math.max(0, bottomVisibility - 0.2));
-    }
-    if (index === activeIndex + 1) {
-      const ref = textRefs.current[index];
-      if (!ref) return 0;
+    const rect = ref.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
+    const visibilityPercentage = visibleHeight / rect.height;
 
-      const rect = ref.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
-      const visibilityPercentage = visibleHeight / rect.height;
-      
-      return Math.max(0, Math.min(1, (visibilityPercentage - 0.4) * 1.5));
+    // Fade out for adjacent sections
+    if (index === activeIndex - 1 || index === activeIndex + 1) {
+      return Math.max(0, Math.min(0.3, visibilityPercentage));
     }
+
     return 0;
   };
 
@@ -349,19 +286,18 @@ const SkillSection = () => {
                 key={index}
                 className="absolute inset-0 flex items-center justify-center pt-16"
                 style={{
-                  zIndex: index === activeIndex ? 20 : 
-                         index === activeIndex - 1 ? 10 : 
-                         index === activeIndex + 1 ? 15 : 0
+                  zIndex: index === activeIndex ? 20 : 10,
+                  pointerEvents: index === activeIndex ? 'auto' : 'none'
                 }}
               >
                 <img
                   src={section.image}
                   alt={section.title}
-                  className="w-4/5 h-auto rounded-lg shadow-2xl transition-all duration-700"
+                  className="w-4/5 h-auto rounded-lg shadow-2xl"
                   style={{ 
                     opacity: getOpacity(index),
-                    transform: `scale(${index === activeIndex ? 1 : 0.95})`,
-                    transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)"
+                    transform: `scale(${index === activeIndex ? 1 : 0.95}) translateY(${index < activeIndex ? '10px' : index > activeIndex ? '-10px' : '0px'})`,
+                    transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
                   }}
                 />
               </div>
