@@ -27,7 +27,6 @@ const SkillSection = () => {
   const sectionRef = useRef(null);
   const textRefs = useRef([]);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [scrollProgress, setScrollProgress] = useState(1); // Start with full opacity
 
   /**
    * Content sections configuration
@@ -76,13 +75,13 @@ const SkillSection = () => {
       TOP_MARGIN: '-40%',
       BOTTOM_MARGIN: '-10%',
       SCROLL_DOWN: {
-        TRIGGER_POINT: 0.05,    // Trigger when section is 5% visible
+        TRIGGER_POINT: 0.1,     // Show next image when next section starts appearing (10% visible)
         FADE_START: 0.2,
       },
       SCROLL_UP: {
-        TRIGGER_POINT: 0.3,     // Keep previous image until 30% of next section is visible
-        FADE_START: 0.6,        // Start fading when 60% of section is visible
-        FADE_END: 0.2,          // Complete fade when 20% is visible
+        TRIGGER_POINT: 0.25,    // Keep image until 25% visible
+        FADE_START: 0.8,
+        FADE_END: 0.2,
       },
       OPACITY_MAX: 1,
       OPACITY_MIN: 0
@@ -91,8 +90,8 @@ const SkillSection = () => {
       TOP_MARGIN: '-40%',
       BOTTOM_MARGIN: '-30%',
       SCROLL_DOWN: {
-        TRIGGER_POINT: 0.4,
-        FADE_START: 0.2,
+        TRIGGER_POINT: 0.95,    // Show next image when next section is 95% visible
+        FADE_START: 0.4,        // Start fade transition at 40%
       },
       SCROLL_UP: {
         TRIGGER_POINT: 0.65,
@@ -104,76 +103,108 @@ const SkillSection = () => {
     }
   };
 
-  const calculateScrollProgress = (rect, viewportHeight, scrollingDown, isMobile) => {
-    const { top: elementTop, bottom: elementBottom } = rect;
-
-    if (isMobile) {
-      const threshold = viewportHeight * VIEWPORT_THRESHOLDS.MOBILE.TRIGGER_POINT;
-      return scrollingDown
-        ? (threshold - elementTop) / threshold
-        : elementBottom / viewportHeight;
-    }
-
-    // Adjusted desktop progress calculation for earlier transitions when scrolling down
-    if (scrollingDown) {
-      const visibleAmount = Math.min(viewportHeight, Math.max(0, viewportHeight - elementTop));
-      return visibleAmount / viewportHeight;
-    } else {
-      return Math.max(0, Math.min(1, elementBottom / viewportHeight));
-    }
-  };
-
-  const handleScrollUp = (elementBottom, viewportHeight, index) => {
-    const triggerPoint = viewportHeight * VIEWPORT_THRESHOLDS.DESKTOP.SCROLL_UP.TRIGGER_POINT;
-    if (elementBottom >= triggerPoint) {
-      setActiveIndex(Math.max(0, index - 1));
-    }
-  };
-
   const getOpacity = (index) => {
     const isMobile = window.innerWidth < 1024;
     
     if (isMobile) {
-      if (index === activeIndex) return 1;
-      if (index === activeIndex + 1) return 0;
+      if (index === activeIndex) {
+        const ref = textRefs.current[index];
+        if (!ref) return 1;
+
+        const rect = ref.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
+        const visibilityPercentage = visibleHeight / rect.height;
+        const topPosition = rect.top / viewportHeight;
+        
+        // Special handling for first section
+        if (index === 0) {
+          // Ensure full opacity when at the top
+          if (topPosition >= -0.1 && topPosition <= 0.1) return 1;
+          return Math.max(0.3, Math.min(1, (1 - Math.abs(topPosition)) * 1.5));
+        }
+        return Math.max(0.3, Math.min(1, visibilityPercentage * 1.2));
+      }
+      
+      if (index === activeIndex + 1) {
+        const ref = textRefs.current[index];
+        if (!ref) return 0;
+
+        const rect = ref.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
+        const visibilityPercentage = visibleHeight / rect.height;
+        
+        // Special handling for transition from first section
+        if (activeIndex === 0) {
+          return Math.max(0, Math.min(1, visibilityPercentage * 1.2));
+        }
+        return Math.max(0, Math.min(1, visibilityPercentage - 0.3));
+      }
+      
       if (index === activeIndex - 1) {
         const ref = textRefs.current[index];
         if (!ref) return 0;
 
+        const rect = ref.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
+        const bottomVisibility = rect.bottom / viewportHeight;
         
-        // Calculate how much of the next section is visible
-        const nextRef = textRefs.current[index + 1];
-        if (!nextRef) return 0;
-        
-        const nextRect = nextRef.getBoundingClientRect();
-        const nextSectionVisibleAmount = (viewportHeight - nextRect.top) / viewportHeight;
-        
-        // Keep previous image visible until next section is 30% visible
-        if (nextSectionVisibleAmount < VIEWPORT_THRESHOLDS.MOBILE.SCROLL_UP.TRIGGER_POINT) {
-          return 1;
-        }
-        
-        // Then fade out gradually
-        const fadeRange = VIEWPORT_THRESHOLDS.MOBILE.SCROLL_UP.FADE_START - VIEWPORT_THRESHOLDS.MOBILE.SCROLL_UP.FADE_END;
-        const fadeProgress = (VIEWPORT_THRESHOLDS.MOBILE.SCROLL_UP.FADE_START - nextSectionVisibleAmount) / fadeRange;
-        return Math.max(0, fadeProgress);
+        return Math.min(1, Math.max(0, bottomVisibility * 1.2));
       }
       return 0;
     }
 
-    // Desktop behavior with different scroll up/down transitions
-    if (index === activeIndex) return VIEWPORT_THRESHOLDS.DESKTOP.OPACITY_MAX;
-    if (index === activeIndex - 1) return VIEWPORT_THRESHOLDS.DESKTOP.OPACITY_MIN;
-    if (index === activeIndex + 1) {
-      const progress = (1 - scrollProgress);
-      const fadeStart = VIEWPORT_THRESHOLDS.DESKTOP.SCROLL_DOWN.FADE_START;
-      if (progress <= fadeStart) {
-        return Math.min(
-          VIEWPORT_THRESHOLDS.DESKTOP.OPACITY_MAX,
-          (fadeStart - progress) * VIEWPORT_THRESHOLDS.DESKTOP.TRANSITION_SPEED
-        );
+    // Desktop behavior
+    if (index === activeIndex) {
+      // Special handling for first section
+      if (index === 0) {
+        const ref = textRefs.current[index];
+        if (!ref) return 1;
+
+        const rect = ref.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const topPosition = rect.top / viewportHeight;
+        
+        // Ensure clean transition for first section
+        if (topPosition > 0.5) return 0;
+        if (topPosition < 0.2) return 1;
+        
+        return Math.min(1, Math.max(0, 1 - (topPosition * 3)));
       }
+      return 1;
+    }
+    if (index === activeIndex - 1) {
+      const ref = textRefs.current[index];
+      if (!ref) return 0;
+
+      const rect = ref.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      
+      // Special handling for Cost Optimization when transitioning to first section
+      if (activeIndex === 0) {
+        const topPosition = rect.top / viewportHeight;
+        
+        // Force complete fade out as it moves up
+        if (topPosition < -0.2) return 0;
+        if (topPosition > 0.3) return 1;
+        
+        return Math.min(1, Math.max(0, (topPosition + 0.2) * 2));
+      }
+      
+      const bottomVisibility = rect.bottom / viewportHeight;
+      return Math.min(1, Math.max(0, bottomVisibility - 0.2));
+    }
+    if (index === activeIndex + 1) {
+      const ref = textRefs.current[index];
+      if (!ref) return 0;
+
+      const rect = ref.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
+      const visibilityPercentage = visibleHeight / rect.height;
+      
+      return Math.max(0, Math.min(1, (visibilityPercentage - 0.4) * 1.5));
     }
     return 0;
   };
@@ -187,44 +218,86 @@ const SkillSection = () => {
     };
 
     let lastScrollY = window.scrollY;
+    let lastActiveIndex = activeIndex;
+    let scrollTimeout;
 
     const observer = new IntersectionObserver((entries) => {
       const currentScrollY = window.scrollY;
       const scrollingDown = currentScrollY > lastScrollY;
       lastScrollY = currentScrollY;
 
-      entries.forEach(entry => {
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+
+      // Sort entries by their position in viewport
+      const sortedEntries = entries.sort((a, b) => {
+        const rectA = a.boundingClientRect;
+        const rectB = b.boundingClientRect;
+        return rectA.top - rectB.top;
+      });
+
+      let newIndex = lastActiveIndex;
+
+      sortedEntries.forEach(entry => {
         const index = parseInt(entry.target.dataset.index);
         const rect = entry.boundingClientRect;
         const viewportHeight = window.innerHeight;
         
+        const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
+        const visibilityPercentage = visibleHeight / rect.height;
+        const sectionPosition = rect.bottom / viewportHeight;
+
         if (scrollingDown) {
-          const sectionVisibleAmount = (viewportHeight - rect.top) / viewportHeight;
-          const triggerPoint = isMobile 
-            ? VIEWPORT_THRESHOLDS.MOBILE.SCROLL_DOWN.TRIGGER_POINT 
-            : 0.15;
-            
-          if (sectionVisibleAmount > triggerPoint) {
-            setActiveIndex(index);
+          if (visibilityPercentage > (isMobile ? 0.4 : 0.5) && index > newIndex) {
+            newIndex = index;
           }
         } else {
-          const triggerPoint = isMobile
-            ? VIEWPORT_THRESHOLDS.MOBILE.SCROLL_UP.TRIGGER_POINT
-            : VIEWPORT_THRESHOLDS.DESKTOP.SCROLL_UP.TRIGGER_POINT;
-            
-          if (rect.bottom >= viewportHeight * triggerPoint) {
-            setActiveIndex(Math.max(0, index - 1));
+          // Enhanced upward scrolling logic
+          const topVisibility = (viewportHeight - rect.top) / viewportHeight;
+          if (topVisibility > (isMobile ? 0.3 : 0.4) && sectionPosition > 0.2) {
+            newIndex = Math.max(0, index);
           }
         }
-
-        const progress = calculateScrollProgress(rect, viewportHeight, scrollingDown, isMobile);
-        setScrollProgress(Math.max(0, Math.min(1, progress)));
       });
+
+      if (newIndex !== lastActiveIndex) {
+        lastActiveIndex = newIndex;
+        setActiveIndex(newIndex);
+      }
+
+      // Fallback check for edge cases
+      scrollTimeout = setTimeout(() => {
+        const mostVisibleSection = sortedEntries.reduce((prev, current) => {
+          const prevRect = prev.boundingClientRect;
+          const currentRect = current.boundingClientRect;
+          const prevCenter = (prevRect.top + prevRect.bottom) / 2;
+          const currentCenter = (currentRect.top + currentRect.bottom) / 2;
+          
+          // Prefer sections closer to the middle of the viewport
+          const viewportCenter = window.innerHeight / 2;
+          const prevDistance = Math.abs(prevCenter - viewportCenter);
+          const currentDistance = Math.abs(currentCenter - viewportCenter);
+          
+          return currentDistance < prevDistance ? current : prev;
+        });
+
+        const centerIndex = parseInt(mostVisibleSection.target.dataset.index);
+        if (centerIndex !== lastActiveIndex) {
+          lastActiveIndex = centerIndex;
+          setActiveIndex(centerIndex);
+        }
+      }, 100);
     }, options);
 
     textRefs.current.forEach(ref => ref && observer.observe(ref));
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      observer.disconnect();
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+    };
+  }, [activeIndex, VIEWPORT_THRESHOLDS.MOBILE.TOP_MARGIN, VIEWPORT_THRESHOLDS.MOBILE.BOTTOM_MARGIN]);
 
   return (
     <div ref={sectionRef} className="relative bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
