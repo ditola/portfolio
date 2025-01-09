@@ -1,27 +1,56 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+/**
+ * @component AnimationSection
+ * @description A scrolling animation section that displays content in two columns:
+ * - Left column: Scrollable content sections
+ * - Right column: Sticky images that transition with scroll progress
+ * 
+ * Features:
+ * - Early image transitions triggered by minimal scroll movement
+ * - Multiple animation phases per section
+ * - Responsive layout with proper scroll-based timing
+ * - Optimized performance with useRef and useState hooks
+ * 
+ * @author Diego Torres
+ * @version 1.0.0
+ */
+
 const AnimationSection = () => {
+  // Refs and State Management
   const sectionRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [animationPhase, setAnimationPhase] = useState(0);
 
-  // Increase offset to trigger much earlier - try these values to find the perfect timing
-  const TRANSITION_OFFSET = 0.001; // This will trigger the transition very early
+  /**
+   * Configuration for transition timing
+   * @constant {number} TRANSITION_OFFSET - Controls how early the image transitions occur
+   * - Lower values (e.g., 0.001) trigger very early transitions
+   * - Higher values (e.g., 0.5) delay the transition
+   */
+  const TRANSITION_OFFSET = 0.001;
 
+  /**
+   * Scroll event handler to manage section transitions
+   * @effect Sets up and cleans up scroll event listener
+   * @listens window:scroll
+   */
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
       
+      // Calculate scroll positions and section dimensions
       const scrollPosition = window.scrollY;
       const sectionTop = sectionRef.current.offsetTop;
       const relativeScroll = scrollPosition - sectionTop;
       const sectionHeight = window.innerHeight * 0.75;
       
-      // Added offset to trigger transition earlier
+      // Apply transition offset and calculate indices
       const adjustedScroll = relativeScroll + (sectionHeight * TRANSITION_OFFSET);
       const scrollProgress = adjustedScroll / sectionHeight;
       const newIndex = Math.min(Math.max(Math.floor(scrollProgress), 0), sections.length - 1);
       
+      // Calculate animation phase within each section
       const phaseProgress = (scrollProgress % 1) * 3;
       const newPhase = Math.min(Math.floor(phaseProgress), 2);
       
@@ -33,6 +62,14 @@ const AnimationSection = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  /**
+   * Content sections configuration
+   * @constant {Array<Object>} sections
+   * @property {string} label - Section category label
+   * @property {string} title - Main section heading
+   * @property {string} content - Descriptive text
+   * @property {string} image - URL for section image
+   */
   const sections = [
     {
       label: "Strategic Impact",
@@ -69,6 +106,7 @@ const AnimationSection = () => {
   return (
     <div ref={sectionRef} className="relative bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="w-full grid grid-cols-2">
+        {/* Left Column: Scrollable Content */}
         <div className="relative">
           {sections.map((section, index) => (
             <div 
@@ -93,6 +131,7 @@ const AnimationSection = () => {
           ))}
         </div>
 
+        {/* Right Column: Sticky Images with Animations */}
         <div className="relative">
           <div className="sticky top-0 min-h-[75vh] flex items-center">
             {sections.map((section, index) => (
@@ -100,6 +139,7 @@ const AnimationSection = () => {
                 key={index}
                 className="absolute inset-0 flex items-center justify-center"
               >
+                {/* Animated Image with multiple transition phases */}
                 <img
                   src={section.image}
                   alt={section.title}

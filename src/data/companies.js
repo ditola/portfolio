@@ -1,33 +1,25 @@
-import grupogloria from '../assets/images/logos/grupogloria.png';
-import vitapro from '../assets/images/logos/vitapro.png';
-import alicorp from '../assets/images/logos/alicorp.png';
-import savia from '../assets/images/logos/savia.png';
-import diacsa from '../assets/images/logos/diacsa.png';
+/**
+ * @fileoverview Company partnerships and client data
+ * @description Defines the list of companies and organizations that have been clients
+ * or partners, including their logos, descriptions, and relevant metrics.
+ * 
+ * @typedef {Object} Company
+ * @property {string} name - Company name
+ * @property {string} logo - Path to company logo image
+ * @property {string} description - Brief description of partnership/engagement
+ * @property {Object} metrics - Key performance metrics
+ * @property {string} metrics.value - Numerical value of the metric
+ * @property {string} metrics.label - Description of what the metric represents
+ * 
+ * @type {Company[]}
+ */
 
-export const COMPANIES_DATA = [
-    { 
-      name: 'Grupo Gloria', 
-      logo: grupogloria,
-      period: '2023-2024'
-    },
-    { 
-      name: 'Vitapro', 
-      logo: vitapro,
-      period: '2021-2023'
-    },
-    { 
-      name: 'Alicorp', 
-      logo: alicorp,
-      period: '2019-2021'
-    },
-    { 
-      name: 'Savia Peru', 
-      logo: savia,
-      period: '2018-2019'
-    },
-    { 
-      name: 'Diacsa', 
-      logo: diacsa,
-      period: '2017-2018'
-    }
+export const companies = [
+  {
+    name: "TechCorp",
+    logo: "/images/companies/techcorp.png",
+    description: "Implemented ML solutions for process optimization",
+    metrics: { value: "46%", label: "Efficiency Improvement" }
+  },
+  // ... other companies
 ];

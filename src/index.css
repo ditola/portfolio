@@ -1,7 +1,25 @@
+/**
+ * Tailwind CSS Base Styles
+ * Include default cross-browser styles
+ */
 @tailwind base;
+
+/**
+ * Tailwind CSS Component Classes
+ * Include any custom components
+ */
 @tailwind components;
+
+/**
+ * Tailwind CSS Utility Classes
+ * Include utility-first classes
+ */
 @tailwind utilities;
 
+/**
+ * Global Styles
+ * Custom properties and base styles
+ */
 html {
   scroll-behavior: smooth;
 }
@@ -24,13 +42,10 @@ code {
   transition: opacity 0.5s ease-in-out;
 }
 
-/* .sticky-grid,
-.sticky-right,
-.sticky-left,
-.sticky-left-content-wrapper {
-  ...
-} */
-
+/**
+ * Animation Keyframes
+ * Define custom animations
+ */
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -42,6 +57,10 @@ code {
   }
 }
 
+/**
+ * Animation Utilities
+ * Custom animation classes
+ */
 .animate-fade-in {
   animation: fadeIn 0.5s ease-in-out forwards;
 }
