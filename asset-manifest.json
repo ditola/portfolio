@@ -1,7 +1,8 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.584e6109.css",
-    "main.js": "/portfolio/static/js/main.646563ba.js",
+    "main.css": "/portfolio/static/css/main.8f9007f9.css",
+    "main.js": "/portfolio/static/js/main.b1493884.js",
+    "static/media/profile-hero.png": "/portfolio/static/media/profile-hero.38df3b8062e0a243dee7.png",
     "static/media/profile-hero.jpg": "/portfolio/static/media/profile-hero.cdf6ea1d2e403a083814.jpg",
     "static/media/grupogloria.png": "/portfolio/static/media/grupogloria.f3e60207dffcf47a1587.png",
     "static/media/savia.png": "/portfolio/static/media/savia.6036b3568a3b959f0555.png",
@@ -9,11 +10,11 @@
     "static/media/vitapro.png": "/portfolio/static/media/vitapro.f02d3eca05e0111796e6.png",
     "static/media/alicorp.png": "/portfolio/static/media/alicorp.2cc5168c60dbdb75cdaa.png",
     "index.html": "/portfolio/index.html",
-    "main.584e6109.css.map": "/portfolio/static/css/main.584e6109.css.map",
-    "main.646563ba.js.map": "/portfolio/static/js/main.646563ba.js.map"
+    "main.8f9007f9.css.map": "/portfolio/static/css/main.8f9007f9.css.map",
+    "main.b1493884.js.map": "/portfolio/static/js/main.b1493884.js.map"
   },
   "entrypoints": [
-    "static/css/main.584e6109.css",
-    "static/js/main.646563ba.js"
+    "static/css/main.8f9007f9.css",
+    "static/js/main.b1493884.js"
   ]
 }
