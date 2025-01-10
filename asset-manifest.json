@@ -1,20 +1,19 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.10c40da9.css",
-    "main.js": "/portfolio/static/js/main.91c40820.js",
+    "main.css": "/portfolio/static/css/main.a3412d13.css",
+    "main.js": "/portfolio/static/js/main.4916a5a2.js",
     "static/media/profile-hero.png": "/portfolio/static/media/profile-hero.38df3b8062e0a243dee7.png",
-    "static/media/profile-hero.jpg": "/portfolio/static/media/profile-hero.cdf6ea1d2e403a083814.jpg",
     "static/media/grupogloria.png": "/portfolio/static/media/grupogloria.f3e60207dffcf47a1587.png",
     "static/media/savia.png": "/portfolio/static/media/savia.6036b3568a3b959f0555.png",
     "static/media/diacsa.png": "/portfolio/static/media/diacsa.081140484c83850825c6.png",
     "static/media/vitapro.png": "/portfolio/static/media/vitapro.f02d3eca05e0111796e6.png",
     "static/media/alicorp.png": "/portfolio/static/media/alicorp.2cc5168c60dbdb75cdaa.png",
     "index.html": "/portfolio/index.html",
-    "main.10c40da9.css.map": "/portfolio/static/css/main.10c40da9.css.map",
-    "main.91c40820.js.map": "/portfolio/static/js/main.91c40820.js.map"
+    "main.a3412d13.css.map": "/portfolio/static/css/main.a3412d13.css.map",
+    "main.4916a5a2.js.map": "/portfolio/static/js/main.4916a5a2.js.map"
   },
   "entrypoints": [
-    "static/css/main.10c40da9.css",
-    "static/js/main.91c40820.js"
+    "static/css/main.a3412d13.css",
+    "static/js/main.4916a5a2.js"
   ]
 }
