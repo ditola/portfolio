@@ -9,11 +9,8 @@ const HeroSection = () => (
     <div className="max-w-5xl mx-auto px-4">
       <div className="grid grid-cols-1 md:grid-cols-9 gap-8 items-center">
         <div className="md:col-span-5 space-y-6">
-          <div className="text-sm font-semibold text-emerald mb-2">
-            Transformando desafíos empresariales en resultados medibles
-          </div>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-            ¿Te enfrentas a alguno de estos retos?
+            ¿Enfrentas a alguno de estos desafíos?
           </h1>
           <div className="space-y-4 pt-4">
             {CORE_SOLUTIONS.map(solution => (
