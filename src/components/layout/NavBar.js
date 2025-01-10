@@ -3,8 +3,6 @@ import { IoMenu, IoClose } from "react-icons/io5";
 import { NAV_LINKS } from '../../data/navigation';
 import Button from '../ui/Button';
 
-console.log(NAV_LINKS); // Check if NAV_LINKS is defined
-
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 

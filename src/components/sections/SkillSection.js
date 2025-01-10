@@ -135,14 +135,14 @@ const SkillSection = () => {
     if (isMobile) {
       if (index === activeIndex + 1) {
         // Show next section when text is 50% visible
-        const enterPoint = viewportHeight * 0.3;
+        // const enterPoint = viewportHeight * 0.3;
         // Calculate progress as text enters viewport
         const progress = (viewportHeight - rect.top) / (viewportHeight * 0.5);
         return progress > 0 ? Math.min(0.8, progress) : 0;
       }
       if (index === activeIndex - 1) {
         // Keep previous section visible until text is 50% out
-        const exitPoint = viewportHeight * 0.5;
+        // const exitPoint = viewportHeight * 0.5;
         // Calculate progress as text exits viewport
         const progress = rect.bottom / (viewportHeight * 0.5);
         return progress > 0 ? Math.min(0.8, progress) : 0;
