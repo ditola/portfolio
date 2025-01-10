@@ -153,7 +153,7 @@ const SkillSection = () => {
         const elementCenter = (rect.top + rect.bottom) / 2;
         const viewportCenter = viewportHeight / 2;
         const distance = Math.abs(elementCenter - viewportCenter);
-        return Math.max(0.2, Math.min(0.6, 1 - (distance / (viewportHeight * 0.75))));
+        return Math.max(0.2, Math.min(0.6, 1 - (distance / (viewportHeight * 0.6))));
       }
     }
     

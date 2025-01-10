@@ -45,7 +45,7 @@ const NavBar = () => {
               />
             </div>
           </div>
-          <div className={`md:hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
+          <div className={`md:hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
             <div className="px-6 py-4 space-y-4">
               {links.map(({ href, label }) => (
                 <a 

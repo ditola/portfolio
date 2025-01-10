@@ -26,31 +26,36 @@ export const companies = [
     name: "Grupo Gloria",
     logo: gloriaLogo,
     description: "Enterprise BI strategy and implementation",
-    metrics: { value: "28%", label: "Revenue Growth" }
+    metrics: { value: "28%", label: "Revenue Growth" },
+    linkedIn: "https://www.linkedin.com/company/grupogloria1"
   },
   {
     name: "Alicorp",
     logo: alicorpLogo,
     description: "Implemented data-driven decision systems for operational excellence",
-    metrics: { value: "46%", label: "Efficiency Improvement" }
+    metrics: { value: "46%", label: "Efficiency Improvement" },
+    linkedIn: "https://www.linkedin.com/company/alicorpoficial"
   },
   {
     name: "Vitapro",
     logo: vitaproLogo,
     description: "Developed predictive analytics platform for supply chain optimization",
-    metrics: { value: "32%", label: "Cost Reduction" }
+    metrics: { value: "32%", label: "Cost Reduction" },
+    linkedIn: "https://www.linkedin.com/company/vitapro-s.a."
   },
   {
     name: "Savia",
     logo: saviaLogo,
     description: "Digital transformation and process automation",
-    metrics: { value: "75%", label: "Process Automation" }
+    metrics: { value: "75%", label: "Process Automation" },
+    linkedIn: "https://www.linkedin.com/company/savia-peru"
   },
   {
     name: "Diacsa",
     logo: diacsaLogo,
     description: "Business intelligence and analytics solutions",
-    metrics: { value: "3.2x", label: "ROI" }
+    metrics: { value: "3.2x", label: "ROI" },
+    linkedIn: "https://www.linkedin.com/company/diacsa-perú"
   }
 ];
 
