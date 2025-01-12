@@ -70,7 +70,7 @@ const CaseCard = ({ caseStudy, onClick }) => (
       {/* Hover Details Overlay */}
       <motion.div
         variants={overlayVariants}
-        className="absolute inset-0 bg-gradient-to-b from-gray-900/95 to-gray-900/95 p-8 flex flex-col justify-between"
+        className="absolute inset-0 bg-gradient-to-b from-gray-900/95 to-gray-900/95 p-5 flex flex-col justify-between"
       >
         <div>
           <h4 className="text-lg font-semibold text-white mb-2">Impact</h4>

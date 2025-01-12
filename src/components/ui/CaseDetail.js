@@ -32,6 +32,38 @@ const contentVariants = {
 };
 
 /**
+ * DonutChart Component - Renders a circular progress indicator
+ */
+const DonutChart = memo(({ value, size = 120, strokeWidth = 8 }) => {
+  const radius = (size - strokeWidth) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const progress = (value / 100) * circumference;
+
+  return (
+    <svg width={size} height={size} className="transform -rotate-90 w-24 md:w-[120px] p-4">
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        fill="none"
+        stroke="#f3f4f6"
+        strokeWidth={strokeWidth}
+      />
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        fill="none"
+        stroke="#059669"
+        strokeWidth={strokeWidth}
+        strokeDasharray={`${progress} ${circumference}`}
+        className="transition-all duration-1000 ease-out"
+      />
+    </svg>
+  );
+});
+
+/**
  * CaseDetail Component - Displays detailed information about a case study in a modal
  * 
  * @component
@@ -55,13 +87,21 @@ const CaseDetail = ({ caseStudy, onClose }) => {
     e.stopPropagation();
   }, []);
 
-  // Render metric card
-  const renderMetric = useCallback(({ value, label }, index) => (
-    <div key={index} className="text-center">
-      <div className="text-3xl font-bold text-emerald mb-2">{value}</div>
-      <div className="text-gray-600">{label}</div>
-    </div>
-  ), []);
+  // Updated metric card render function
+  const renderMetric = useCallback(({ value, label }, index) => {
+    const numericValue = parseInt(value, 10);
+    return (
+      <div key={index} className="text-center relative">
+        <div className="relative inline-flex items-center justify-center">
+          <DonutChart value={numericValue} />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-3xl font-bold text-emerald">{value}</div>
+          </div>
+        </div>
+        <div className="text-gray-600 mt-4">{label}</div>
+      </div>
+    );
+  }, []);
 
   // Render technology badge
   const renderTechBadge = useCallback((tech, index) => (
@@ -120,7 +160,7 @@ const CaseDetail = ({ caseStudy, onClose }) => {
             animate="visible"
             exit="exit"
             transition={{ delay: 0.2 }}
-            className="space-y-12 bg-white rounded-2xl p-8 shadow-2xl"
+            className="space-y-12 bg-white rounded-2xl p-6 md:p-20 pt-20 md:pt-40 pb-20 md:pb-40 shadow-2xl"
           >
             {/* Header Section */}
             <div className="space-y-6">
@@ -145,7 +185,7 @@ const CaseDetail = ({ caseStudy, onClose }) => {
             </blockquote>
 
             {/* Metrics Grid */}
-            <div className="grid grid-cols-3 gap-8 py-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 py-8">
               {caseStudy.impact.metrics.map(renderMetric)}
             </div>
 
