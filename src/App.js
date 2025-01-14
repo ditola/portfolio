@@ -9,6 +9,7 @@
 
 import React from 'react';
 import Portfolio from './pages/Portfolio';
+import './styles/animations.css';
 
 const App = () => {
   return (

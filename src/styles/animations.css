@@ -1,0 +1,39 @@
+/* 
+ * Infinite scroll animation for company logos
+ * The animation moves content from right to left continuously
+ * The -50% - 1rem calculation ensures smooth transition by accounting for the gap
+ */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 1rem)); /* Compensate for gap to ensure smooth loop */
+  }
+}
+
+/* 
+ * Main container for scrolling companies
+ * - 15s duration provides smooth, readable movement
+ * - linear timing ensures consistent speed
+ * - gap creates visual spacing between items
+ * - width: fit-content ensures proper sizing for animation
+ */
+.companies-scroll {
+  animation: scroll 15s linear infinite;
+  display: flex;
+  gap: 1rem;
+  width: fit-content;
+}
+
+/* Utility class to disable scroll animation when needed */
+.companies-no-scroll {
+  animation: none;
+}
+
+/* Disable animation on desktop viewports */
+@media (min-width: 768px) {
+  .companies-scroll {
+    animation: none;
+  }
+} 
