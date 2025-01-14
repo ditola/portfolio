@@ -1,63 +1,104 @@
-import React from 'react';
-import profileHero from '../../assets/images/hero/profile-hero.png';
-import Button from '../ui/Button';
-
 /**
  * @component ContactSection
  * @description A responsive contact section with three equal parts that stack vertically on mobile
  * and display horizontally on desktop.
+ * 
+ * Features:
+ * - Optimized image loading with lazy loading and proper sizing
+ * - Responsive layout with mobile-first approach
+ * - Accessible buttons and interactive elements
+ * - Direct PDF downloads from public directory
+ * 
+ * @author Diego Torres
+ * @version 1.2.1
  */
-const ContactSection = () => (
+
+import React, { memo } from 'react';
+import profileHero from '../../assets/images/hero/profile-hero.png';
+import Button from '../ui/Button';
+import { CTA_LINK } from '../../data/navigation';
+
+const ContactSection = memo(() => (
   <div id="contact" className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
     <div className="rounded-[24px] w-full mx-auto bg-gradient-to-br from-[hsl(60,5%,44%)] to-[hsl(30,5%,25%)] overflow-hidden">
       <div className="flex flex-col lg:flex-row">
         {/* Text Content */}
-        <div className="flex-1 flex items-center justify-center p-16">
+        <div className="flex-1 flex items-center justify-center p-16 lg:p-16">
           <div className="text-center lg:text-left">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
               Aprovecha tu propia data.
             </h2>
             <p className="text-sm sm:text-base lg:text-lg text-gray-300">
-              Incrementa tu eficiencia con Inteligencia Artificial.
+              Déjame ayudarte a lograrlo.
             </p>
           </div>
         </div>
 
-        {/* Profile Image */}
-        <div className="flex-1 flex items-center justify-center">
-          <div className="relative w-40 lg:w-[280px] h-40 lg:h-[280px] overflow-hidden">
+        {/* Profile Image - Desktop */}
+        <div className="hidden lg:flex flex-1 items-center justify-center">
+          <div className="relative w-[280px] h-[280px]">
             <img
               src={profileHero}
               alt="Diego Torres - Data Science & ML Engineering"
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-contain object-bottom"
+              loading="lazy"
+              decoding="async"
               style={{
-                objectPosition: 'center 5%',
-                transform: 'scale(1)'
+                transform: 'scale(1.01)',
+                willChange: 'transform'
               }}
             />
           </div>
         </div>
 
-        {/* Buttons */}
-        <div className="flex-1 flex items-center justify-center pb-20 lg:p-8">
-          <div className="flex flex-col gap-4">
+        {/* Buttons and Mobile Image */}
+        <div className="flex-1 flex flex-col items-center justify-center pb-16 lg:p-8">
+          {/* Mobile Profile Image */}
+          <div className="lg:hidden relative w-48 h-48 mb-5">
+            <img
+              src={profileHero}
+              alt="Diego Torres - Data Science & ML Engineering"
+              className="w-full h-full object-contain object-bottom"
+              loading="lazy"
+              decoding="async"
+              style={{
+                transform: 'scale(1.2)',
+                willChange: 'transform'
+              }}
+            />
+          </div>
+
+          <div className="flex flex-col gap-4 w-full max-w-xs">
             <Button
-              link="https://tidycal.com/diegotorresll/30-min"
+              link={CTA_LINK}
               text="Conversemos"
               variant="primary"
               className="w-full"
+              ariaLabel="Agendar una conversación"
             />
             <Button
-              link="/resume.pdf"
-              text="Descargar CV"
+              href="/assets/pdf/Resume_Diego_Torres_ESP.pdf"
+              text="CV en Español"
               variant="secondary"
               className="w-full"
+              download="Resume_Diego_Torres_ESP.pdf"
+              ariaLabel="Descargar CV en Español"
+            />
+            <Button
+              href="/assets/pdf/Resume_Diego_Torres_ENG.pdf"
+              text="CV in English"
+              variant="secondary"
+              className="w-full"
+              download="Resume_Diego_Torres_ENG.pdf"
+              ariaLabel="Download CV in English"
             />
           </div>
         </div>
       </div>
     </div>
   </div>
-);
+));
+
+ContactSection.displayName = 'ContactSection';
 
 export default ContactSection;

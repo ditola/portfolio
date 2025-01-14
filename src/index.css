@@ -113,3 +113,33 @@ code {
 .text-emerald {
   color: var(--emerald-color);
 }
+
+/* 3D Transform Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-1500 {
+  perspective: 1500px;
+}
+
+.rotate-y-6 {
+  transform: rotateY(6deg);
+}
+
+.rotate-y-neg-6 {
+  transform: rotateY(-6deg);
+}
+
+.rotate-z-30 {
+  transform: rotateZ(30deg);
+}
+
+/* Combined rotation class */
+.rotate-y-neg-6.rotate-z-30 {
+  transform: rotateY(-6deg) rotateZ(30deg);
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}

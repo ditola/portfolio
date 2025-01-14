@@ -10,10 +10,25 @@
  * - Performance optimized transitions
  * 
  * @author Diego Torres
- * @version 1.2.0
+ * @version 1.2.1
  */
 
 import React, { useEffect, useRef, useState } from 'react';
+// TODO: Replace placeholder images with actual SVGs
+/*
+import dataImage from '../../assets/images/about/data-driven.svg';
+import innovationImage from '../../assets/images/about/innovation.svg';
+import experienceImage from '../../assets/images/about/experience.svg';
+import collaborationImage from '../../assets/images/about/collaboration.svg';
+import visionImage from '../../assets/images/about/vision.svg';
+*/
+
+// Temporary placeholder images
+const dataImage = 'https://placehold.co/600x400/2563eb/ffffff/png?text=Data+Solutions';
+const innovationImage = 'https://placehold.co/600x400/16a34a/ffffff/png?text=Innovation';
+const experienceImage = 'https://placehold.co/600x400/dc2626/ffffff/png?text=Experience';
+const collaborationImage = 'https://placehold.co/600x400/9333ea/ffffff/png?text=Collaboration';
+const visionImage = 'https://placehold.co/600x400/0891b2/ffffff/png?text=Vision';
 
 const AboutSection = () => {
   // Refs and State Management
@@ -35,31 +50,31 @@ const AboutSection = () => {
       label: "Mi Enfoque",
       title: "Soluciones Basadas en Datos",
       content: "Transformo datos en decisiones estratégicas. Mi enfoque combina análisis avanzado con visualización intuitiva para crear soluciones que impulsan resultados medibles y sostenibles.",
-      image: "https://via.placeholder.com/400x300/2563eb/ffffff?text=Data+Driven"
+      image: dataImage
     },
     {
       label: "Metodología",
       title: "Innovación Práctica",
       content: "Aplico metodologías ágiles y design thinking para desarrollar soluciones que equilibran innovación con practicidad. Cada proyecto se construye sobre evidencia y se valida con resultados concretos.",
-      image: "https://via.placeholder.com/400x300/16a34a/ffffff?text=Innovation"
+      image: innovationImage
     },
     {
       label: "Experiencia",
       title: "Impacto Comprobado",
       content: "Con más de una década transformando negocios a través de tecnología, he ayudado a empresas a alcanzar mejoras significativas en eficiencia operativa y ventaja competitiva.",
-      image: "https://via.placeholder.com/400x300/dc2626/ffffff?text=Experience"
+      image: experienceImage
     },
     {
       label: "Colaboración",
       title: "Trabajo en Equipo",
       content: "Creo en el poder de la colaboración. Trabajo estrechamente con equipos internos para asegurar que las soluciones no solo resuelven problemas, sino que también empoderan a las personas que las utilizan.",
-      image: "https://via.placeholder.com/400x300/9333ea/ffffff?text=Collaboration"
+      image: collaborationImage
     },
     {
       label: "Visión",
       title: "Futuro Sostenible",
       content: "Mi objetivo es crear soluciones que no solo resuelven los desafíos de hoy, sino que también preparan a las organizaciones para el futuro, con un enfoque en sostenibilidad y escalabilidad.",
-      image: "https://via.placeholder.com/400x300/0891b2/ffffff?text=Vision"
+      image: visionImage
     }
   ];
 
@@ -80,23 +95,22 @@ const AboutSection = () => {
       const viewportHeight = window.innerHeight;
       let newActiveIndex = activeIndex;
       const isMobile = window.innerWidth < 1024;
+      const navbarHeight = 80; // Height of the fixed navbar
 
       textRefs.current.forEach((ref, index) => {
         if (!ref) return;
         const rect = ref.getBoundingClientRect();
+        const adjustedTop = rect.top - navbarHeight;
         
         if (isMobile) {
-          // More lenient check for mobile
-          if (rect.top < viewportHeight * 0.8 && rect.bottom > viewportHeight * 0.2) {
+          if (adjustedTop < viewportHeight * 0.7 && rect.bottom > viewportHeight * 0.3) {
             newActiveIndex = index;
           }
-          // Special case for first section on mobile
-          if (index === 0 && rect.bottom > viewportHeight * 0.3) {
+          if (index === 0 && rect.bottom > viewportHeight * 0.4) {
             newActiveIndex = 0;
           }
         } else {
-          // Desktop behavior remains the same
-          if (rect.top < viewportHeight * 0.75 && rect.bottom > viewportHeight * 0.25) {
+          if (adjustedTop < viewportHeight * 0.65 && rect.bottom > viewportHeight * 0.35) {
             newActiveIndex = index;
           }
         }
@@ -114,79 +128,43 @@ const AboutSection = () => {
   }, [activeIndex]);
 
   const getOpacity = (index) => {
-    // During initial load, show first image with full opacity
     if (isInitialLoad && index === 0) return 1;
-
-    const isMobile = window.innerWidth < 1024;
-    const ref = textRefs.current[index];
-    if (!ref) return 0;
-
-    const rect = ref.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
-
-    // Special case for first section
-    if (index === 0 && rect.bottom > 0) {
-      return 1;
-    }
-
     if (index === activeIndex) return 1;
-
-    if (isMobile) {
-      if (index === activeIndex + 1) {
-        // Show next section when text is 50% visible
-        // const enterPoint = viewportHeight * 0.3;
-        // Calculate progress as text enters viewport
-        const progress = (viewportHeight - rect.top) / (viewportHeight * 0.5);
-        return progress > 0 ? Math.min(0.8, progress) : 0;
-      }
-      if (index === activeIndex - 1) {
-        // Keep previous section visible until text is 50% out
-        // const exitPoint = viewportHeight * 0.5;
-        // Calculate progress as text exits viewport
-        const progress = rect.bottom / (viewportHeight * 0.5);
-        return progress > 0 ? Math.min(0.8, progress) : 0;
-      }
-    } else {
-      // Desktop: fade adjacent sections
-      if (index === activeIndex - 1 || index === activeIndex + 1) {
-        const elementCenter = (rect.top + rect.bottom) / 2;
-        const viewportCenter = viewportHeight / 2;
-        const distance = Math.abs(elementCenter - viewportCenter);
-        return Math.max(0.2, Math.min(0.6, 1 - (distance / (viewportHeight * 0.6))));
-      }
-    }
-    
     return 0;
   };
 
   return (
-    <div id="about" ref={sectionRef} className="relative bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="w-full grid grid-cols-1 lg:grid-cols-2">
+    <div id="about" ref={sectionRef} className="relative bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+      <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Left Column */}
         <div className="relative">
           {sections.map((section, index) => (
             <div 
               key={index} 
-              className="min-h-[60vh] lg:min-h-[75vh] flex flex-col lg:flex-row items-start lg:items-center px-4 lg:px-8 py-8 lg:py-0"
+              className="min-h-[70vh] lg:min-h-[85vh] flex flex-col lg:flex-row items-start lg:items-center px-4 lg:px-8 py-12 lg:py-0"
             >
               {/* Mobile-only image */}
-              <div className="block lg:hidden w-full mb-6 mt-4">
-                <img
-                  src={section.image}
-                  alt={section.title}
-                  className="w-full h-auto rounded-lg shadow-2xl transition-all duration-500"
-                  style={{ opacity: getOpacity(index) }}
-                />
+              <div className="block lg:hidden w-full mb-8 mt-6">
+                <div className="relative aspect-[3/2] w-full overflow-hidden rounded-lg bg-gray-100">
+                  <img
+                    src={section.image}
+                    alt={section.title}
+                    className="w-full h-full object-cover transition-opacity duration-500"
+                    loading="lazy"
+                    decoding="async"
+                    style={{ opacity: getOpacity(index) }}
+                  />
+                </div>
               </div>
               
               {/* Content */}
               <div className="w-full">
-                <div className="mb-4">
-                  <div className="text-emerald font-semibold tracking-wide">
+                <div className="mb-6">
+                  <div className="text-emerald font-semibold tracking-wide uppercase text-sm">
                     {section.label}
                   </div>
                 </div>
-                <h3 className="text-2xl lg:text-4xl font-bold mb-4 lg:mb-6 text-gray-900">
+                <h3 className="text-2xl lg:text-4xl font-bold mb-6 lg:mb-8 text-gray-900">
                   {section.title}
                 </h3>
                 <p 
@@ -203,26 +181,30 @@ const AboutSection = () => {
 
         {/* Right Column: Desktop Images Only */}
         <div className="hidden lg:block relative">
-          <div className="sticky top-0 min-h-[75vh] flex items-center">
+          <div className="sticky top-20 min-h-[85vh] flex items-center">
             {sections.map((section, index) => (
               <div 
                 key={index}
-                className="absolute inset-0 flex items-center justify-center pt-16"
+                className="absolute inset-0 flex items-center justify-center"
                 style={{
+                  opacity: getOpacity(index),
+                  transition: 'opacity 0.6s ease-in-out',
                   zIndex: index === activeIndex ? 20 : 10,
                   pointerEvents: index === activeIndex ? 'auto' : 'none'
                 }}
               >
-                <img
-                  src={section.image}
-                  alt={section.title}
-                  className="w-4/5 h-auto rounded-lg shadow-2xl transition-all duration-500"
-                  style={{ 
-                    opacity: getOpacity(index),
-                    transform: `scale(${index === activeIndex ? 1 : 0.95}) translateY(${index < activeIndex ? '10px' : index > activeIndex ? '-10px' : '0px'})`,
-                    transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-                  }}
-                />
+                <div className="relative aspect-[3/2] w-4/5 overflow-hidden rounded-lg bg-gray-100">
+                  <img
+                    src={section.image}
+                    alt={section.title}
+                    className="w-full h-full object-cover shadow-2xl transition-transform duration-500"
+                    loading="lazy"
+                    decoding="async"
+                    style={{ 
+                      transform: `scale(${index === activeIndex ? 1 : 0.95}) translateY(${index < activeIndex ? '10px' : index > activeIndex ? '-10px' : '0px'})`,
+                    }}
+                  />
+                </div>
               </div>
             ))}
           </div>

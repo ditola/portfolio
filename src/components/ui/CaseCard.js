@@ -1,103 +1,175 @@
-import React, { memo } from 'react';
-import { motion } from 'framer-motion';
-
 /**
- * Animation variants for hover effects
- */
-const hoverVariants = {
-  initial: { scale: 1 },
-  hover: { scale: 1.02 }
-};
-
-const overlayVariants = {
-  initial: { opacity: 0 },
-  hover: { opacity: 1 }
-};
-
-const lineVariants = {
-  initial: { width: 0 },
-  hover: { width: 'auto' }
-};
-
-/**
- * CaseCard Component - Displays a preview of a case study with hover interactions
+ * @component CaseCard
+ * @description An interactive card component that displays case study information with
+ * smooth animations and transitions. Implements accessibility features and keyboard navigation.
  * 
- * @component
- * @param {Object} props
- * @param {Object} props.caseStudy - The case study data to display
- * @param {Function} props.onClick - Callback function when card is clicked
+ * @typedef {Object} CaseStudy
+ * @property {string} id - Unique identifier
+ * @property {string} title - Case study title
+ * @property {React.ComponentType} icon - Icon component
+ * @property {string} description - Brief description
+ * 
+ * @typedef {Object} CaseCardProps
+ * @property {CaseStudy} caseStudy - Case study data
+ * @property {() => void} onClick - Click handler
+ * @property {boolean} [isSelected] - Whether the card is currently selected
+ * @property {string} [className] - Additional CSS classes
  */
-const CaseCard = ({ caseStudy, onClick }) => (
-  <motion.div
-    variants={hoverVariants}
-    initial="initial"
-    whileHover="hover"
-    transition={{ duration: 0.2 }}
-    onClick={onClick}
-    className="relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl overflow-hidden cursor-pointer group h-[320px]"
-  >
-    {/* Background gradient overlay */}
-    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900/90" />
 
-    {/* Content */}
-    <div className="relative p-8 h-full flex flex-col">
-      {/* Icon */}
-      <div className="mb-6">
-        <caseStudy.icon className="w-8 h-8 text-emerald" aria-hidden="true" />
-      </div>
+import React, { memo, useCallback } from 'react';
+import { motion } from 'framer-motion';
+import PropTypes from 'prop-types';
 
-      {/* Title and Description */}
-      <div className="flex-grow">
-        <h3 className="text-2xl font-bold text-white mb-3">
-          {caseStudy.title}
-        </h3>
-        <p className="text-gray-300 mb-4">
-          {caseStudy.shortDescription}
-        </p>
-      </div>
+// Animation variants
+const cardVariants = {
+  initial: { 
+    backgroundColor: '#fafafa',
+    zIndex: 10,
+    scale: 1,
+    y: 0
+  },
+  hover: { 
+    backgroundColor: '#ffffff',
+    zIndex: 20,
+    scale: 1.02,
+    y: -4,
+    transition: {
+      duration: 0.3,
+      ease: [0.32, 0.72, 0, 1]
+    }
+  },
+  tap: {
+    scale: 0.98,
+    transition: {
+      duration: 0.1
+    }
+  }
+};
 
-      {/* Impact Metrics */}
-      <div className="flex items-center space-x-4">
-        <div className="text-emerald font-semibold">
-          {caseStudy.impact.headline}
-        </div>
-        <motion.div
-          variants={lineVariants}
-          className="h-px bg-emerald/30"
-        />
-      </div>
+const iconContainerVariants = {
+  initial: { 
+    scale: 1,
+    rotate: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.32, 0.72, 0, 1]
+    }
+  },
+  hover: { 
+    scale: 1.05,
+    rotate: 5,
+    transition: {
+      duration: 0.5,
+      ease: [0.32, 0.72, 0, 1]
+    }
+  }
+};
 
-      {/* Hover Details Overlay */}
+const CaseCard = memo(({ 
+  caseStudy, 
+  onClick, 
+  isSelected = false,
+  className = ''
+}) => {
+  const handleKeyPress = useCallback((event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      onClick?.();
+    }
+  }, [onClick]);
+
+  return (
+    <div className={`relative ${className}`}>
       <motion.div
-        variants={overlayVariants}
-        className="absolute inset-0 bg-gradient-to-b from-gray-900/95 to-gray-900/95 p-5 flex flex-col justify-between"
+        layoutId={`case-container-${caseStudy.id}`}
+        variants={cardVariants}
+        initial="initial"
+        whileHover="hover"
+        whileTap="tap"
+        onClick={onClick}
+        onKeyPress={handleKeyPress}
+        role="button"
+        tabIndex={0}
+        aria-pressed={isSelected}
+        aria-label={`Ver caso de estudio: ${caseStudy.title}`}
+        className={`
+          relative rounded-2xl overflow-hidden cursor-pointer h-[400px] group
+          border border-black/[0.08] shadow-[0_1px_2px_rgba(0,0,0,0.04)]
+          focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2
+          ${isSelected ? 'ring-2 ring-emerald-500 ring-offset-2' : ''}
+        `}
       >
-        <div>
-          <h4 className="text-lg font-semibold text-white mb-2">Impact</h4>
-          <div className="grid grid-cols-3 gap-4 mb-6">
-            {caseStudy.impact.metrics.map((metric, index) => (
-              <div key={index} className="text-center">
-                <div className="text-emerald font-bold text-2xl">{metric.value}</div>
-                <div className="text-gray-400 text-sm">{metric.label}</div>
-              </div>
-            ))}
-          </div>
-          <div className="space-y-2">
-            {caseStudy.details.slice(0, 3).map((detail, index) => (
-              <div key={index} className="text-gray-300 text-sm flex items-center">
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald mr-2" aria-hidden="true" />
-                {detail}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="text-sm text-gray-400">
-          Click to view full case study
-        </div>
+        {/* Gradient overlay */}
+        <motion.div 
+          layoutId={`gradient-${caseStudy.id}`}
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          aria-hidden="true"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/[0.04] to-blue-500/[0.04]" />
+        </motion.div>
+        
+        {/* Content container */}
+        <motion.div 
+          layoutId={`content-container-${caseStudy.id}`}
+          className="relative h-full p-8 flex flex-col items-center justify-center"
+        >
+          {/* Icon container */}
+          <motion.div
+            layoutId={`icon-container-${caseStudy.id}`}
+            variants={iconContainerVariants}
+            className="relative w-32 h-32 mb-8"
+            aria-hidden="true"
+          >
+            <motion.div
+              layoutId={`icon-bg-${caseStudy.id}`}
+              className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gray-50 to-white shadow-sm"
+            />
+            <motion.div 
+              layoutId={`icon-${caseStudy.id}`}
+              className="absolute inset-0 flex items-center justify-center"
+            >
+              <caseStudy.icon className="w-16 h-16 text-gray-900" />
+            </motion.div>
+          </motion.div>
+
+          {/* Title and Description */}
+          <motion.div 
+            layoutId={`title-container-${caseStudy.id}`}
+            className="text-center space-y-2"
+          >
+            <motion.h3 
+              layoutId={`title-${caseStudy.id}`}
+              className="text-xl font-medium text-gray-900"
+            >
+              {caseStudy.title}
+            </motion.h3>
+            {caseStudy.description && (
+              <motion.p
+                layoutId={`description-${caseStudy.id}`}
+                className="text-sm text-gray-600"
+              >
+                {caseStudy.description}
+              </motion.p>
+            )}
+          </motion.div>
+        </motion.div>
       </motion.div>
     </div>
-  </motion.div>
-);
+  );
+});
 
-// Memoize the component to prevent unnecessary re-renders
-export default memo(CaseCard); 
+CaseCard.displayName = 'CaseCard';
+
+CaseCard.propTypes = {
+  caseStudy: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    icon: PropTypes.elementType.isRequired,
+    description: PropTypes.string
+  }).isRequired,
+  onClick: PropTypes.func,
+  isSelected: PropTypes.bool,
+  className: PropTypes.string
+};
+
+export default CaseCard; 

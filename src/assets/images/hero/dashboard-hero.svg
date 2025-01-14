@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#FFFFFF"/>
+  
+  <!-- Sidebar -->
+  <rect x="0" y="0" width="220" height="800" fill="#F5F5F5"/>
+  
+  <!-- Sidebar Content -->
+  <!-- Logo Area -->
+  <rect x="24" y="24" width="172" height="32" rx="6" fill="#E8E8E8"/>
+  
+  <!-- Navigation Items -->
+  <g transform="translate(24, 80)">
+    <!-- Home -->
+    <rect width="172" height="36" rx="6" fill="#EAEAEA"/>
+    <text x="48" y="24" font-family="Arial" font-size="14" fill="#333333">Home</text>
+    <circle cx="24" cy="18" r="4" fill="#666666"/>
+    
+    <!-- Issues -->
+    <g transform="translate(0, 44)">
+      <rect width="172" height="36" rx="6" fill="#F5F5F5"/>
+      <text x="48" y="24" font-family="Arial" font-size="14" fill="#666666">Issues</text>
+      <circle cx="24" cy="18" r="4" fill="#666666"/>
+    </g>
+    
+    <!-- Projects -->
+    <g transform="translate(0, 88)">
+      <rect width="172" height="36" rx="6" fill="#F5F5F5"/>
+      <text x="48" y="24" font-family="Arial" font-size="14" fill="#666666">Projects</text>
+      <circle cx="24" cy="18" r="4" fill="#666666"/>
+    </g>
+    
+    <!-- Documents -->
+    <g transform="translate(0, 132)">
+      <rect width="172" height="36" rx="6" fill="#F5F5F5"/>
+      <text x="48" y="24" font-family="Arial" font-size="14" fill="#666666">Documents</text>
+      <circle cx="24" cy="18" r="4" fill="#666666"/>
+    </g>
+  </g>
+  
+  <!-- Main Content Area -->
+  <g transform="translate(220, 0)">
+    <!-- Header -->
+    <rect x="0" y="0" width="980" height="64" fill="#FAFAFA"/>
+    <line x1="0" y1="64" x2="980" y2="64" stroke="#EEEEEE" stroke-width="1"/>
+    
+    <!-- Search Bar -->
+    <rect x="24" y="16" width="240" height="32" rx="6" fill="#F0F0F0"/>
+    <text x="48" y="36" font-family="Arial" font-size="13" fill="#999999">Search...</text>
+    
+    <!-- Header Actions -->
+    <circle cx="920" cy="32" r="16" fill="#F0F0F0"/>
+    <circle cx="872" cy="32" r="16" fill="#F0F0F0"/>
+    
+    <!-- Content Grid -->
+    <g transform="translate(24, 88)">
+      <!-- Stats Cards Row -->
+      <g>
+        <!-- Total Issues Card -->
+        <rect width="220" height="120" rx="8" fill="#F8F8F8" stroke="#EEEEEE"/>
+        <text x="24" y="32" font-family="Arial" font-size="14" fill="#666666">Total Issues</text>
+        <text x="24" y="72" font-family="Arial" font-size="32" font-weight="bold" fill="#333333">1,234</text>
+        
+        <!-- Active Projects Card -->
+        <g transform="translate(244, 0)">
+          <rect width="220" height="120" rx="8" fill="#F8F8F8" stroke="#EEEEEE"/>
+          <text x="24" y="32" font-family="Arial" font-size="14" fill="#666666">Active Projects</text>
+          <text x="24" y="72" font-family="Arial" font-size="32" font-weight="bold" fill="#333333">12</text>
+        </g>
+        
+        <!-- Team Members Card -->
+        <g transform="translate(488, 0)">
+          <rect width="220" height="120" rx="8" fill="#F8F8F8" stroke="#EEEEEE"/>
+          <text x="24" y="32" font-family="Arial" font-size="14" fill="#666666">Team Members</text>
+          <text x="24" y="72" font-family="Arial" font-size="32" font-weight="bold" fill="#333333">48</text>
+        </g>
+      </g>
+      
+      <!-- Recent Activity -->
+      <g transform="translate(0, 144)">
+        <rect width="932" height="400" rx="8" fill="#F8F8F8" stroke="#EEEEEE"/>
+        <text x="24" y="32" font-family="Arial" font-size="16" font-weight="bold" fill="#333333">Recent Activity</text>
+        
+        <!-- Activity Items -->
+        <g transform="translate(24, 56)">
+          <!-- Activity Item 1 -->
+          <rect width="884" height="64" rx="6" fill="#FFFFFF" stroke="#F0F0F0"/>
+          <circle cx="32" cy="32" r="16" fill="#F0F0F0"/>
+          <text x="64" y="36" font-family="Arial" font-size="14" fill="#333333">Issue updated: Homepage redesign</text>
+          <text x="64" y="52" font-family="Arial" font-size="12" fill="#999999">Updated 2h ago by Sarah</text>
+          
+          <!-- Activity Item 2 -->
+          <g transform="translate(0, 72)">
+            <rect width="884" height="64" rx="6" fill="#FFFFFF" stroke="#F0F0F0"/>
+            <circle cx="32" cy="32" r="16" fill="#F0F0F0"/>
+            <text x="64" y="36" font-family="Arial" font-size="14" fill="#333333">New project created: Q2 Planning</text>
+            <text x="64" y="52" font-family="Arial" font-size="12" fill="#999999">Created 3h ago by Mike</text>
+          </g>
+          
+          <!-- Activity Item 3 -->
+          <g transform="translate(0, 144)">
+            <rect width="884" height="64" rx="6" fill="#FFFFFF" stroke="#F0F0F0"/>
+            <circle cx="32" cy="32" r="16" fill="#F0F0F0"/>
+            <text x="64" y="36" font-family="Arial" font-size="14" fill="#333333">Comment added to: API Documentation</text>
+            <text x="64" y="52" font-family="Arial" font-size="12" fill="#999999">4h ago by Alex</text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

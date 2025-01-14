@@ -15,9 +15,12 @@ const CompaniesSection = () => {
   return (
     <section id="companies" className="py-16 bg-gray-100">
       <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12 ml-3 mr-3">
-          Organizaciones que respaldan mi trayectoria:
+        <h2 className="text-3xl font-bold text-center mb-3">
+          Experiencia respaldada por empresas líderes
         </h2>
+        <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
+          Colaborando con organizaciones que impulsan la innovación a través de la ciencia de datos y machine learning.
+        </p>
         
         <div className="overflow-hidden">
           {/* Mobile scrolling view - Uses doubled array for smooth infinite scroll */}
