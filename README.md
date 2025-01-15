@@ -1,70 +1,100 @@
-# Getting Started with Create React App
+# Diego Torres - Portfolio Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is my personal portfolio website built with React, Tailwind CSS, and Framer Motion.
 
-## Available Scripts
+![Portfolio Preview](public/assets/images/hero/profile-hero.jpg)
 
-In the project directory, you can run:
+## 🌟 Features
 
-### `npm start`
+- **Modern UI/UX**: Clean and professional design with smooth transitions and animations
+- **Responsive Design**: Fully responsive layout that works seamlessly on all devices
+- **Case Studies**: Interactive case study presentations with detailed project information
+- **Performance Optimized**: Fast loading times and optimized assets
+- **Accessibility**: ARIA-compliant and keyboard navigation support
+- **Animations**: Smooth transitions and micro-interactions using Framer Motion
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🚀 Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- React.js
+- Tailwind CSS
+- Framer Motion
+- React Icons
+- Modern CSS Features (Grid, Flexbox, CSS Variables)
 
-### `npm test`
+## 📦 Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository:
+```bash
+git clone https://github.com/ditola/ditola.github.io.git
+cd ditola.github.io
+```
 
-### `npm run build`
+2. Install dependencies:
+```bash
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Start the development server:
+```bash
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The site will be available at `http://localhost:3000`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🏗️ Project Structure
 
-### `npm run eject`
+```
+src/
+├── components/
+│   ├── layout/        # Layout components (NavBar, Footer)
+│   ├── sections/      # Main page sections (Hero, About, Cases)
+│   └── ui/           # Reusable UI components
+├── assets/
+│   ├── images/       # Image assets
+│   └── icons/        # Icon assets
+├── data/            # Static data and configuration
+├── styles/          # Global styles and animations
+└── App.js          # Main application component
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🎨 Customization
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Colors
+The color scheme can be customized in `src/index.css`. The main colors are:
+- Primary: #003566 (Navy Blue)
+- Secondary: #001D3D (Dark Blue)
+- Accent: Various shades of blue and slate
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Content
+Update the content in the `src/data` directory:
+- `navigation.js`: Navigation links and CTA button
+- Other data files for case studies and sections
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📱 Responsive Design
 
-## Learn More
+The site is responsive with breakpoints at:
+- Mobile: < 768px
+- Tablet: 768px - 1024px
+- Desktop: > 1024px
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🚀 Deployment
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The site is configured for GitHub Pages deployment. To deploy:
 
-### Code Splitting
+```bash
+npm run deploy
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🤝 Contributing
 
-### Analyzing the Bundle Size
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 📄 License
 
-### Making a Progressive Web App
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 📧 Contact
 
-### Advanced Configuration
+Diego Torres - [Contact Form](https://ditola.github.io/#contact)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Project Link: [https://github.com/ditola/ditola.github.io](https://github.com/ditola/ditola.github.io)
