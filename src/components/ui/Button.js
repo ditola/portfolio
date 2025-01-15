@@ -31,11 +31,11 @@ const Button = memo(({
   icon,
   onClick,
 }) => {
-  const baseStyles = "inline-flex items-center justify-center px-6 py-2 rounded-lg transition-all duration-200 whitespace-nowrap text-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-60 disabled:cursor-not-allowed";
+  const baseStyles = "inline-flex items-center justify-center px-6 py-2 rounded-lg transition-all duration-200 whitespace-nowrap text-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-deep-purple disabled:opacity-60 disabled:cursor-not-allowed";
   
   const variantStyles = {
-    primary: 'bg-[#00FFA3] hover:bg-[#00E693] text-black shadow-sm hover:shadow-md active:transform active:scale-95',
-    secondary: 'bg-transparent border border-gray-400 hover:border-gray-300 text-gray-300 hover:text-white active:transform active:scale-95'
+    primary: 'bg-deep-purple hover:bg-light-purple text-white shadow-sm hover:shadow-md active:transform active:scale-95',
+    secondary: 'bg-transparent border border-system-gray hover:border-pale-sage text-soft-slate hover:text-steel-blue active:transform active:scale-95'
   };
 
   const commonProps = {

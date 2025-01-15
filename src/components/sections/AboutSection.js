@@ -134,7 +134,7 @@ const AboutSection = () => {
   };
 
   return (
-    <div id="about" ref={sectionRef} className="relative bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+    <div id="about" ref={sectionRef} className="relative bg-off-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
       <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Left Column */}
         <div className="relative">
@@ -145,7 +145,7 @@ const AboutSection = () => {
             >
               {/* Mobile-only image */}
               <div className="block lg:hidden w-full mb-8 mt-6">
-                <div className="relative aspect-[3/2] w-full overflow-hidden rounded-lg bg-gray-100">
+                <div className="relative aspect-[3/2] w-full overflow-hidden rounded-lg glass-effect">
                   <img
                     src={section.image}
                     alt={section.title}
@@ -160,17 +160,17 @@ const AboutSection = () => {
               {/* Content */}
               <div className="w-full">
                 <div className="mb-6">
-                  <div className="text-emerald font-semibold tracking-wide uppercase text-sm">
+                  <div className="text-deep-purple font-semibold tracking-wide uppercase text-sm">
                     {section.label}
                   </div>
                 </div>
-                <h3 className="text-2xl lg:text-4xl font-bold mb-6 lg:mb-8 text-gray-900">
+                <h3 className="text-2xl lg:text-4xl font-bold mb-6 lg:mb-8 text-steel-blue">
                   {section.title}
                 </h3>
                 <p 
                   ref={el => textRefs.current[index] = el}
                   data-index={index}
-                  className="text-base lg:text-xl text-gray-600 leading-relaxed"
+                  className="text-base lg:text-xl text-soft-slate leading-relaxed"
                 >
                   {section.content}
                 </p>
@@ -193,7 +193,7 @@ const AboutSection = () => {
                   pointerEvents: index === activeIndex ? 'auto' : 'none'
                 }}
               >
-                <div className="relative aspect-[3/2] w-4/5 overflow-hidden rounded-lg bg-gray-100">
+                <div className="relative aspect-[3/2] w-4/5 overflow-hidden rounded-lg glass-effect">
                   <img
                     src={section.image}
                     alt={section.title}

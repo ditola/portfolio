@@ -24,10 +24,10 @@ const SocialIcon = memo(({ type }) => {
 SocialIcon.displayName = 'SocialIcon';
 
 const Footer = memo(() => (
-  <footer className="py-8 bg-white border-t border-gray-200">
+  <footer className="py-8 bg-off-white border-t border-system-gray">
     <div className="max-w-5xl mx-auto px-4">
       <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-soft-slate">
           © {new Date().getFullYear()} Diego Torres
         </p>
         <div className="flex items-center gap-4">
@@ -37,14 +37,13 @@ const Footer = memo(() => (
               href={href}
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-emerald transition-colors"
+              className="text-soft-slate hover:text-deep-purple transition-colors"
               aria-label={`Visitar perfil de ${name}`}
             >
               <SocialIcon type={icon} />
             </a>
           ))}
         </div>
-        
       </div>
     </div>
   </footer>

@@ -31,15 +31,15 @@ const cardVariants = {
     }
   },
   hover: { 
-    scale: 1.01,
-    y: -2,
+    scale: 1.03,
+    y: -8,
     transition: {
-      duration: 0.5,
+      duration: 0.4,
       ease: [0.32, 0.72, 0, 1]
     }
   },
   tap: {
-    scale: 0.995,
+    scale: 0.98,
     transition: {
       duration: 0.2,
       ease: [0.32, 0.72, 0, 1]
@@ -83,11 +83,11 @@ const CaseCard = memo(({
         aria-label={`Ver caso de estudio: ${caseStudy.title}`}
         className={`
           relative rounded-2xl overflow-hidden cursor-pointer h-[400px] group
-          bg-slate-50 hover:bg-slate-200
-          border border-black/[0.08] shadow-[0_1px_2px_rgba(0,0,0,0.04)]
-          focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2
-          transition-colors duration-500 ease-out
-          ${isSelected ? 'ring-2 ring-emerald-500 ring-offset-2' : ''}
+          bg-off-white hover:bg-system-gray/100 glass-effect
+          border border-system-gray shadow-lg hover:shadow-xl
+          focus:outline-none focus:ring-2 focus:ring-deep-purple focus:ring-offset-2
+          transition-all duration-500 ease-out
+          ${isSelected ? 'ring-2 ring-deep-purple ring-offset-2' : ''}
         `}
         transition={sharedTransition}
       >
@@ -109,7 +109,7 @@ const CaseCard = memo(({
               className="flex items-center justify-center"
               transition={sharedTransition}
             >
-              <caseStudy.icon className="w-16 h-16 text-gray-900" />
+              <caseStudy.icon className="w-16 h-16 text-steel-blue" />
             </motion.div>
           </motion.div>
 
@@ -121,7 +121,7 @@ const CaseCard = memo(({
           >
             <motion.h3 
               layoutId={`title-${caseStudy.id}`}
-              className="text-xl font-medium text-gray-900"
+              className="text-xl font-medium text-steel-blue"
               transition={sharedTransition}
             >
               {caseStudy.title}
@@ -129,7 +129,7 @@ const CaseCard = memo(({
             {caseStudy.description && (
               <motion.p
                 layoutId={`description-${caseStudy.id}`}
-                className="text-sm text-gray-600"
+                className="text-sm text-soft-slate"
                 transition={sharedTransition}
               >
                 {caseStudy.description}

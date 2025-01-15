@@ -14,12 +14,12 @@ import CompanyCard from '../ui/CompanyCard';
 const CompaniesSection = () => {
   return (
     <section id="companies" className="py-16 bg-gray-100">
-      <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-3">
+      <div className="max-w-5xl mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-3 text-steel-blue">
           Experiencia respaldada por empresas líderes
         </h2>
-        <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
-          Colaborando con organizaciones que impulsan la innovación a través de la ciencia de datos y machine learning.
+        <p className="text-xl text-soft-slate text-center mb-12 max-w-3xl mx-auto">
+          Dominando finanzas, tecnología y negocios para resolver problemas con data.
         </p>
         
         <div className="overflow-hidden">
@@ -42,7 +42,7 @@ const CompaniesSection = () => {
             {COMPANIES_DATA.map((company) => (
               <div 
                 key={company.name} 
-                className="flex-shrink-0 w-[200px]"
+                className="flex-shrink-0 w-[180px]"
               >
                 <CompanyCard company={company} />
               </div>

@@ -106,17 +106,17 @@ const HeroSection = memo(() => {
   return (
     <section 
       id="hero" 
-      className="pt-20 pb-12 md:pt-32 md:pb-24 bg-gradient-to-r from-emerald-50 to-white"
+      className="pt-20 pb-12 md:pt-32 md:pb-24 bg-off-white"
       aria-label="Sección de introducción"
     >
       <div className="max-w-5xl mx-auto px-4">
         <div className="flex flex-col items-left">
-          <div className="w-full max-w-3xl mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight text-left mb-6 mt-4">
+          <div className="w-full max-w-3xl pl-6 mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-steel-blue leading-tight text-left mb-6 mt-4">
               Resuelvo problemas de negocio con data, ciencia y diseño.
             </h1>
             <div 
-              className="text-xl md:text-2xl font-semibold text-emerald mb-8 text-left max-w-2xl"
+              className="text-xl md:text-2xl font-semibold text-deep-purple mb-8 text-left max-w-2xl"
               role="doc-subtitle"
             >
               Existen tres grandes ventajas competitivas que puede generarte la tecnología actual en el mercado.

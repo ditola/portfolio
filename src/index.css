@@ -20,6 +20,29 @@
  * Global Styles
  * Custom properties and base styles
  */
+:root {
+  /* Background Colors */
+  --background-color: #FAFAFA;
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-nav-bg: rgba(255, 255, 255, 0.8);
+  
+  /* Main Colors */
+  --text-color: #64748B;
+  --heading-color: #334155;
+  --secondary-color: #94A3B8;
+  
+  /* Accent Colors */
+  --primary-accent: #6366F1;
+  --hover-accent: #818CF8;
+  --border-color: #E2E8F0;
+  
+  /* Glass Effect */
+  --glass-blur: blur(8px);
+  --nav-glass-blur: blur(10px);
+  --glass-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -31,8 +54,20 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  position: relative;
+}
+
+/* Add grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: theme('backgroundImage.grain');
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 1;
 }
 
 code {
@@ -40,14 +75,47 @@ code {
     monospace;
 }
 
-.section {
-  transition: opacity 0.5s ease-in-out;
+/* Glass Effect Classes */
+.glass-effect {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
 }
 
-/**
- * Animation Keyframes
- * Define custom animations
- */
+.glass-nav {
+  background: var(--glass-nav-bg);
+  backdrop-filter: var(--nav-glass-blur);
+  -webkit-backdrop-filter: var(--nav-glass-blur);
+  border-bottom: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+/* Button Styles */
+.button {
+  background-color: var(--primary-accent);
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: var(--hover-accent);
+}
+
+/* Text Styles */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-color);
+}
+
+.text-secondary {
+  color: var(--secondary-color);
+}
+
+/* Border Styles */
+.border {
+  border-color: var(--border-color);
+}
+
+/* Animation Keyframes */
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -59,59 +127,8 @@ code {
   }
 }
 
-/**
- * Animation Utilities
- * Custom animation classes
- */
 .animate-fade-in {
   animation: fadeIn 0.5s ease-in-out forwards;
-}
-
-.button {
-  background-color: var(--button-background);
-  color: var(--text-color);
-}
-
-.button:hover {
-  background-color: var(--button-hover-background);
-}
-
-.text-secondary {
-  color: var(--secondary-text-color);
-}
-
-.border {
-  border-color: #666666;
-}
-
-/* Example CSS for glassmorphism */
-.navbar {
-    backdrop-filter: blur(10px); /* Adjust the blur amount as needed */
-    background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent white */
-    border-radius: 12px; /* Rounded corners */
-    border: none; /* Remove any border */
-    box-shadow: none; /* Remove any shadow if necessary */
-}
-
-:root {
-  --emerald-color: #00FFA3; /* Default emerald color */
-  --emerald-hover-color: #00E693; /* Hover color for emerald */
-  --button-background: #007BFF; /* Default button background color */
-  --button-hover-background: #FFD700; /* Button hover color */
-  --text-color: #000000; /* Default text color */
-  --secondary-text-color: #333333; /* Secondary text color */
-  --border-color: #666666; /* Border color */
-  --background-color: #ffffff; /* Background color */
-}
-
-/* Add a class for light theme */
-.light-theme {
-  --emerald-color: #007BFF; /* Change to a more suitable color for light backgrounds */
-}
-
-/* Example usage of the variable */
-.text-emerald {
-  color: var(--emerald-color);
 }
 
 /* 3D Transform Utilities */
@@ -121,23 +138,6 @@ code {
 
 .perspective-1500 {
   perspective: 1500px;
-}
-
-.rotate-y-6 {
-  transform: rotateY(6deg);
-}
-
-.rotate-y-neg-6 {
-  transform: rotateY(-6deg);
-}
-
-.rotate-z-30 {
-  transform: rotateZ(30deg);
-}
-
-/* Combined rotation class */
-.rotate-y-neg-6.rotate-z-30 {
-  transform: rotateY(-6deg) rotateZ(30deg);
 }
 
 .transform-style-3d {
