@@ -73,14 +73,14 @@ const ContactSection = memo(() => (
               link={CTA_LINK}
               text="Conversemos"
               variant="primary"
-              className="w-full"
+              className="w-3/4 mx-auto"
               ariaLabel="Agendar una conversación"
             />
             <Button
               href="/assets/pdf/Resume_Diego_Torres_ESP.pdf"
               text="CV en Español"
               variant="secondary"
-              className="w-full"
+              className="w-3/4 mx-auto"
               download="Resume_Diego_Torres_ESP.pdf"
               ariaLabel="Descargar CV en Español"
             />
@@ -88,7 +88,7 @@ const ContactSection = memo(() => (
               href="/assets/pdf/Resume_Diego_Torres_ENG.pdf"
               text="CV in English"
               variant="secondary"
-              className="w-full"
+              className="w-3/4 mx-auto"
               download="Resume_Diego_Torres_ENG.pdf"
               ariaLabel="Download CV in English"
             />

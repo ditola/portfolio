@@ -23,46 +23,35 @@ import PropTypes from 'prop-types';
 // Animation variants
 const cardVariants = {
   initial: { 
-    backgroundColor: '#fafafa',
-    zIndex: 10,
     scale: 1,
-    y: 0
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.32, 0.72, 0, 1]
+    }
   },
   hover: { 
-    backgroundColor: '#ffffff',
-    zIndex: 20,
-    scale: 1.02,
-    y: -4,
+    scale: 1.01,
+    y: -2,
     transition: {
-      duration: 0.3,
+      duration: 0.5,
       ease: [0.32, 0.72, 0, 1]
     }
   },
   tap: {
-    scale: 0.98,
+    scale: 0.995,
     transition: {
-      duration: 0.1
+      duration: 0.2,
+      ease: [0.32, 0.72, 0, 1]
     }
   }
 };
 
-const iconContainerVariants = {
-  initial: { 
-    scale: 1,
-    rotate: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.32, 0.72, 0, 1]
-    }
-  },
-  hover: { 
-    scale: 1.05,
-    rotate: 5,
-    transition: {
-      duration: 0.5,
-      ease: [0.32, 0.72, 0, 1]
-    }
-  }
+const sharedTransition = {
+  type: "spring",
+  duration: 0.6,
+  bounce: 0,
+  ease: [0.32, 0.72, 0, 1]
 };
 
 const CaseCard = memo(({ 
@@ -84,7 +73,7 @@ const CaseCard = memo(({
         layoutId={`case-container-${caseStudy.id}`}
         variants={cardVariants}
         initial="initial"
-        whileHover="hover"
+        whileHover={!isSelected && "hover"}
         whileTap="tap"
         onClick={onClick}
         onKeyPress={handleKeyPress}
@@ -94,39 +83,31 @@ const CaseCard = memo(({
         aria-label={`Ver caso de estudio: ${caseStudy.title}`}
         className={`
           relative rounded-2xl overflow-hidden cursor-pointer h-[400px] group
+          bg-slate-50 hover:bg-slate-200
           border border-black/[0.08] shadow-[0_1px_2px_rgba(0,0,0,0.04)]
           focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2
+          transition-colors duration-500 ease-out
           ${isSelected ? 'ring-2 ring-emerald-500 ring-offset-2' : ''}
         `}
+        transition={sharedTransition}
       >
-        {/* Gradient overlay */}
-        <motion.div 
-          layoutId={`gradient-${caseStudy.id}`}
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          aria-hidden="true"
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/[0.04] to-blue-500/[0.04]" />
-        </motion.div>
-        
         {/* Content container */}
         <motion.div 
           layoutId={`content-container-${caseStudy.id}`}
           className="relative h-full p-8 flex flex-col items-center justify-center"
+          transition={sharedTransition}
         >
           {/* Icon container */}
           <motion.div
             layoutId={`icon-container-${caseStudy.id}`}
-            variants={iconContainerVariants}
-            className="relative w-32 h-32 mb-8"
+            className="relative w-32 h-32 mb-8 flex items-center justify-center"
             aria-hidden="true"
+            transition={sharedTransition}
           >
-            <motion.div
-              layoutId={`icon-bg-${caseStudy.id}`}
-              className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gray-50 to-white shadow-sm"
-            />
             <motion.div 
               layoutId={`icon-${caseStudy.id}`}
-              className="absolute inset-0 flex items-center justify-center"
+              className="flex items-center justify-center"
+              transition={sharedTransition}
             >
               <caseStudy.icon className="w-16 h-16 text-gray-900" />
             </motion.div>
@@ -136,10 +117,12 @@ const CaseCard = memo(({
           <motion.div 
             layoutId={`title-container-${caseStudy.id}`}
             className="text-center space-y-2"
+            transition={sharedTransition}
           >
             <motion.h3 
               layoutId={`title-${caseStudy.id}`}
               className="text-xl font-medium text-gray-900"
+              transition={sharedTransition}
             >
               {caseStudy.title}
             </motion.h3>
@@ -147,6 +130,7 @@ const CaseCard = memo(({
               <motion.p
                 layoutId={`description-${caseStudy.id}`}
                 className="text-sm text-gray-600"
+                transition={sharedTransition}
               >
                 {caseStudy.description}
               </motion.p>
