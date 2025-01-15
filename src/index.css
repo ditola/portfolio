@@ -62,8 +62,12 @@ body {
 /* Add grain overlay */
 body::before {
   content: '';
-  position: fixed;
-  inset: 0;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   background-image: theme('backgroundImage.grain');
   opacity: 0.04;
   pointer-events: none;

@@ -113,13 +113,13 @@ const HeroSection = memo(() => {
         <div className="flex flex-col items-left">
           <div className="w-full max-w-3xl pl-6 mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-steel-blue leading-tight text-left mb-6 mt-4">
-              Resuelvo problemas de negocio con data, ciencia y diseño.
+              Te ayudo a resolver problemas de negocio con data, ciencia y diseño.
             </h1>
             <div 
               className="text-xl md:text-2xl font-semibold text-deep-purple mb-8 text-left max-w-2xl"
               role="doc-subtitle"
             >
-              Existen tres grandes ventajas competitivas que puede generarte la tecnología actual en el mercado.
+              ¿Sabías que se pueden hacer estas iniciativas con la tecnología actual?
             </div>
             <div className="flex justify-left">
               <Button 
